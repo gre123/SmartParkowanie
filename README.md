@@ -1,6 +1,6 @@
 # SmartParkowanie
 Projekt z Studia Projektowego, IO Informatyka, AGH
 Autorzy:
-Tomasz Gajda
-Grzegorz Bylina
-Mateusz Maj
+inż. Tomasz Gajda
+inż. Grzegorz Bylina
+inż. Mateusz Maj
