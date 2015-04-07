@@ -1,0 +1,85 @@
+options {
+  STATIC = false;
+}
+
+PARSER_BEGIN(MapParser)
+
+import java.io.StringReader;
+import java.util.ArrayList;
+
+public class MapParser {
+
+  public class MapDot
+  {
+		private String id;
+		private String lat;
+		private String lon;
+		public MapDot(String _id, String _lat, String _lon)
+		{
+			id = _id;
+			lat = _lat;
+			lon = _lon;
+		}
+  }
+  
+  public static ArrayList<MapDot> mapDots = new ArrayList<MapDot>();
+  
+  public static void main(String args[]) throws Exception 
+  {
+	StringReader in = new StringReader("<node id=\"30376951\" visible=\"true\" version=\"6\" changeset=\"17360569\" timestamp=\"2013-08-15T15:06:53Z\" user=\"W³adys³aw Komorek\" uid=\"693154\" lat=\"50.0629329\" lon=\"19.9324157\"/>");
+    MapParser interpreter = new MapParser(in);
+	interpreter.start();
+  }
+
+}
+
+PARSER_END(MapParser)
+
+
+SKIP: { " " |"\t" |"\n" |"\r" |"=" |"\"" |"-" |":" |"\u00a4" | "\u00a5" | "\u00a8" | "\u00a9" | "\u2014" | "\ufffd" | "\u02dd" | "\u013e" | "\u0104" | "\u0179" | "\u201a"
+	| "\u0164" | "\u00ab" | "\u2020" | "\u0103" | "\u00e4" | "\u02d8" | "\u0155" | "\u0165" |"\u0139" | "\u0142" | "\u2021" | "\u2122" | "\u203a"
+	| "\u2026" | "\u015f" | "\u201e"	//wci¹¿ s¹ nie wszystkie ale windows ma inne kodowanie znaków w konsoli a inne w plikach.
+    | "\u0105"
+    | "\u0106" | "\u0107"
+    | "\u0118" | "\u0119"
+    | "\u0141"
+    | "\u0143" | "\u0144"
+    | "\u00d3" | "\u00f3"
+    | "\u015a" | "\u015b"
+    | "\u017a"
+    | "\u017b" | "\u017c" |"."}
+
+TOKEN: { <NODE: "<node id"> }
+TOKEN: { <WORD: (["A"-"z"])+> }
+TOKEN: { <NUM: ["0"-"9"]> }
+TOKEN: { <NID: ["0"-"9"](["0"-"9"])*> }
+TOKEN: { <NEND: "/>"> }
+TOKEN: { <LAT: "lat="> }
+TOKEN: { <LON: "lon="> }
+TOKEN: { <LNUM: (["0"-"9"])*"."<NID>>  }
+
+ArrayList<MapDot> start():
+{
+	int id=0;
+	Token nid;
+	Token lat;
+	Token lon;
+	
+}
+{
+	<NODE>
+	{
+	  System.out.println("Jest node");
+	}
+	nid=<NID>(<WORD>|<NUM>|<NID>)*<LAT>lat=<LNUM><LON>lon=<LNUM>
+	{
+		mapDots.add(new MapParser.MapDot(nid.image,lat.image,lon.image));
+		System.out.println("Zapisalem "+ nid.image);
+		System.out.println("Wspolrzedne "+ lat.image +":"+lon.image);
+	}
+	<NEND>
+	<EOF>
+	{
+		return mapDots;
+	}
+}
