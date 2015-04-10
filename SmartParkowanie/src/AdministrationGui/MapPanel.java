@@ -5,24 +5,59 @@
  */
 package AdministrationGui;
 
-import java.io.StringReader;
 
-/**
- *
- * @author Grzesiek
- */
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+
+
 public class MapPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form MapPanel
      */
+    //Timer t = new Timer(5, this);
+    double x = 0, y = 0;
     public MapPanel() {
         initComponents();
-        StringReader in = new StringReader("<node id=\u005c"30376951\u005c" visible=\u005c"true\u005c" version=\u005c"6\u005c" changeset=\u005c"17360569\u005c" timestamp=\u005c"2013-08-15T15:06:53Z\u005c" user=\u005c"W\u0142adys\u0142aw Komorek\u005c" uid=\u005c"693154\u005c" lat=\u005c"50.0629329\u005c" lon=\u005c"19.9324157\u005c"/>");
-        //MapParser interpreter = null;
-        //interpreter.start();
   }
-
+    
+  
+    public void paintComponent(Graphics g)
+    {
+     super.paintComponent(g);
+     Graphics2D g2 = (Graphics2D) g;
+     g2.fill(new Ellipse2D.Double(x,y,10,10));
+    }
+    
+    public void up()
+    {
+        y += -1.5;
+        x +=0;
+        this.repaint();
+    }
+    
+     public void down()
+    {
+        y += +1.5;
+        x +=0;
+        this.repaint();
+    }
+     
+      public void left()
+    {
+        y += 0;
+        x +=-1.5;
+        this.repaint();
+    }
+      
+      
+       public void right()
+    {
+        y += 0;
+        x +=1.5;
+        this.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
