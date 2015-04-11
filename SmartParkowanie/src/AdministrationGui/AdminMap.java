@@ -6,6 +6,7 @@ import Model.CarMarker;
 import Model.LabeledMarker;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -99,10 +100,23 @@ public class AdminMap extends PApplet{
          }
     }
     
+    @Override
+    public void mouseMoved() {
+        Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
+        if (hitMarker != null) {
+            hitMarker.setSelected(true);
+        } else {
+            for (Marker marker : map.getMarkers()) {
+                marker.setSelected(false);
+            }
+        }
+    }
+   /**
+    * Ręczne dodawanie parkingów
+    */
    public void addCarparks()
    {
        ArrayList<LabeledMarker> carparks = new ArrayList<LabeledMarker>();
-       PFont font = null; 
        
        carparks.add(new LabeledMarker(new Location(50.06682f, 19.91584f), "parking 1 - miejsce na info:\n\nIlość wolnych miejsc : 30"
                + "\nStatus : Dostępny",4));
