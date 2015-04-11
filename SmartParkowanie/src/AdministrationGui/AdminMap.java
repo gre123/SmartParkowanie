@@ -2,6 +2,8 @@
 package AdministrationGui;
 
 
+import Model.CarMarker;
+import Model.LabeledMarker;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
@@ -30,10 +32,7 @@ public class AdminMap extends PApplet{
         carLocation = new Location(50.0660f, 19.9190f);
         AGHLocation = new Location(50.0660f, 19.9190f);
         MapUtils.createDefaultEventDispatcher(this, map);
-        carMarker = new SimplePointMarker(carLocation);
-        carMarker.setRadius(5f);
-        carMarker.setColor(Color.RED.hashCode());
-        
+        carMarker = new CarMarker(carLocation, "Adam Mickiewicz", 111111,1);
         markerManager.addMarker(carMarker);
         addCarparks();
         
@@ -105,13 +104,15 @@ public class AdminMap extends PApplet{
        ArrayList<LabeledMarker> carparks = new ArrayList<LabeledMarker>();
        PFont font = null; 
        
-       carparks.add(new LabeledMarker(new Location(50.06682f, 19.91584f), "parking 1 - miejsce na info",font,15));
-       carparks.add(new LabeledMarker(new Location(50.06645f, 19.91505f), "parking 2 - miejsce na info",font,15));
-       carparks.add(new LabeledMarker(new Location(50.06756f, 19.91384f), "parking 3 - miejsce na info",font,15));
-       carparks.add(new LabeledMarker(new Location(50.06642f, 19.91253f), "parking 4 - miejsce na info",font,15));
-       carparks.add(new LabeledMarker(new Location(50.06626f, 19.91243f), "parking 5 - miejsce na info",font,15));
-       carparks.add(new LabeledMarker(new Location(50.06687f, 19.91960f), "parking 6 - miejsce na info",font,15));
-       carparks.add(new LabeledMarker(new Location(50.06576f, 19.91268f), "parking 7 - miejsce na info",font,15));
+       carparks.add(new LabeledMarker(new Location(50.06682f, 19.91584f), "parking 1 - miejsce na info:\n\nIlość wolnych miejsc : 30"
+               + "\nStatus : Dostępny",4));
+       carparks.add(new LabeledMarker(new Location(50.06645f, 19.91505f), "parking 1 - miejsce na info",1));
+       carparks.add(new LabeledMarker(new Location(50.06756f, 19.91384f), "parking 3 - miejsce na info",1));
+       carparks.add(new LabeledMarker(new Location(50.06642f, 19.91253f), "parking 4 - miejsce na info",1));
+       carparks.add(new LabeledMarker(new Location(50.06626f, 19.91243f), "parking 5 - miejsce na info",1));
+       carparks.add(new LabeledMarker(new Location(50.06687f, 19.91960f), "parking 1 - miejsce na info:\n\nIlość wolnych miejsc : 30"
+               + "\nStatus : Dostępny",4));
+       carparks.add(new LabeledMarker(new Location(50.06576f, 19.91268f), "parking 7 - miejsce na info",1));
        
        for(LabeledMarker park: carparks)
        {

@@ -1,5 +1,5 @@
 
-package AdministrationGui;
+package Model;
 
 import processing.core.PFont;
 import processing.core.PGraphics;
@@ -16,18 +16,12 @@ public class LabeledMarker extends SimplePointMarker {
 	protected String name;
 	protected int space = 6;
 	private float fontSize = 12;
+        private int lines = 1;
 
-	public LabeledMarker(Location location, String name) {
-		this(location, name, null, 0);
-	}
-
-	public LabeledMarker(Location location, String name, PFont font, float size) {
+	public LabeledMarker(Location location, String name, int lines) {
 		this.location = location;
 		this.name = name;
-
-		if (font != null) {
-			this.fontSize = font.getSize();
-		}
+                this.lines = lines;
 	}
 
 	/**
@@ -54,7 +48,7 @@ public class LabeledMarker extends SimplePointMarker {
 			pg.fill(Color.BLUE.hashCode());
 			pg.stroke(Color.RED.hashCode());
 			pg.rect(x + strokeWeight / 2, y - fontSize + strokeWeight / 2 - space, pg.textWidth(name) + space * 1.5f,
-					fontSize + space);
+				fontSize + 2*space*lines);
 			pg.fill(255, 255, 255);
 			pg.text(name, Math.round(x + space * 0.75f + strokeWeight / 2),
 					Math.round(y + strokeWeight / 2 - space * 0.75f));
