@@ -34,9 +34,9 @@ public class TempNode {
         szerokosc = x;
     }
 
-    double minus(TempNode b) {
+    int minus(TempNode b) {
         double PI = 3.1415;
-        return (sqrt(pow(cos(PI * szerokosc / 180) * (b.dlugosc - dlugosc), 2) + pow((b.szerokosc - szerokosc), 2)) * PI * 12765.274 / 360) * 1000;
+        return (int)(sqrt(pow(cos(PI * szerokosc / 180) * (b.dlugosc - dlugosc), 2) + pow((b.szerokosc - szerokosc), 2)) * PI * 12765.274 / 360) * 1000;
     }
 
     TempNode find_node(ArrayList<TempNode> node_list, int a) {
