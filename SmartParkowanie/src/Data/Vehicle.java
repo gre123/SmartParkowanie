@@ -1,4 +1,4 @@
-package smartparkowanie.simulator;
+package Data;
 import java.util.ArrayList;
 
 
@@ -9,10 +9,10 @@ public class Vehicle {
 //******************************************************************************************************************************************//
 	
 	private int id;					// unikalny numer pojazdu
-	private String position;		// aktualna pozycja pojazdu- ulica na której siê znajduje(krawêdŸ grafu)
-	private String destination;		// pozycja do której zmierza pojazd- wierzcho³ek grafu(parking).
-	boolean isParked;				// zmienna okreœlaj¹ca czy pojazd jest w trasie czy mo¿e parkuje
-	int waitTime;					// zmienna oznaczaj¹ca czas parkowania/postoju
+	private String position;		// aktualna pozycja pojazdu- ulica na ktï¿½rej siï¿½ znajduje(krawï¿½dï¿½ grafu)
+	private String destination;		// pozycja do ktï¿½rej zmierza pojazd- wierzchoï¿½ek grafu(parking).
+	boolean isParked;				// zmienna okreï¿½lajï¿½ca czy pojazd jest w trasie czy moï¿½e parkuje
+	int waitTime;					// zmienna oznaczajï¿½ca czas parkowania/postoju
 	
 	private ArrayList<DayEvent> dayPlan;
 	int dayPlanIndex;
@@ -34,7 +34,7 @@ public class Vehicle {
 	}
 	
 //******************************************************************************************************************************************//
-//	FUNKCJE U¯YTKOWE																														//
+//	FUNKCJE Uï¿½YTKOWE																														//
 //******************************************************************************************************************************************//
 	
 	public String toString(){

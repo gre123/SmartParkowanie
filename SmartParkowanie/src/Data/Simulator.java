@@ -1,4 +1,4 @@
-package smartparkowanie.simulator;
+package Data;
 import java.util.TreeMap;
 
 
@@ -17,7 +17,7 @@ public class Simulator {
 //******************************************************************************************************************************************//
 	
 	/**
-	 * Konstruktor przyjmuje wygenerowan¹ listê pojazdów bior¹cych udzia³ w symulacji 
+	 * Konstruktor przyjmuje wygenerowanï¿½ listï¿½ pojazdï¿½w biorï¿½cych udziaï¿½ w symulacji 
 	 * Godzina symulacji zostaje ustawiona na 00:00
 	 * @param vehicleList
 	 */
@@ -29,7 +29,7 @@ public class Simulator {
 
 	
 //******************************************************************************************************************************************//
-//	FUNKCJE U¯YTKOWE																														//
+//	FUNKCJE Uï¿½YTKOWE																														//
 //******************************************************************************************************************************************//
 	
 	public void doIteration(){
@@ -68,7 +68,7 @@ public class Simulator {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Metoda realizuj¹ca symulacjê przep³ywu czasu.
+	 * Metoda realizujï¿½ca symulacjï¿½ przepï¿½ywu czasu.
 	 */
 	private void pushTime(){
 		if(incrementMinute()){
@@ -81,7 +81,7 @@ public class Simulator {
 //******************************************************************************************************************************************//
 	
 	/**
-	 * Metoda ustawiaj¹ca godziene wirtualnego czasu symulacji.
+	 * Metoda ustawiajï¿½ca godziene wirtualnego czasu symulacji.
 	 * @param val
 	 */
 	public void setHour(int val){
@@ -91,7 +91,7 @@ public class Simulator {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Metoda ustawiaj¹ca minute wirtualnego czasu symulacji.
+	 * Metoda ustawiajï¿½ca minute wirtualnego czasu symulacji.
 	 * @param val
 	 */
 	public void setMinute(int val){
@@ -103,7 +103,7 @@ public class Simulator {
 //******************************************************************************************************************************************//
 	
 	/**
-	 * Metoda zwraca listê pojazdów.
+	 * Metoda zwraca listï¿½ pojazdï¿½w.
 	 * @return
 	 */
 	public TreeMap<Integer, Vehicle> getVehicles(){
@@ -113,7 +113,7 @@ public class Simulator {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Metoda zwraca aktualn¹ godzinê wirtualnego czasu symulacji.
+	 * Metoda zwraca aktualnï¿½ godzinï¿½ wirtualnego czasu symulacji.
 	 * @return
 	 */
 	public int getHour(){
@@ -123,7 +123,7 @@ public class Simulator {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Metoda zwraca aktualn¹ minutê wirtuualnego czasu symulacji.
+	 * Metoda zwraca aktualnï¿½ minutï¿½ wirtuualnego czasu symulacji.
 	 * @return
 	 */
 	public int getMinute(){

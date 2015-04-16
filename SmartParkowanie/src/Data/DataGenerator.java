@@ -1,4 +1,4 @@
-package smartparkowanie.simulator;
+package Data;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
@@ -36,13 +36,13 @@ public class DataGenerator {
 	}
 	
 //******************************************************************************************************************************************//
-//	FUNKCJE U¯YTKOWE																														//
+//	FUNKCJE Uï¿½YTKOWE																														//
 //******************************************************************************************************************************************//
 	
 	/**
-	 * Metoda generuje wektor pojemnoœci ulic.
-	 * zakres definiowany poprzez sta³e STREET_LOAD_LOWER_BOUND i STREET_LOAD_UPPER_BOUND.
-	 * @param numberOfEdges  Iloœæ ulic- iloœæ krawedzi w grafie.
+	 * Metoda generuje wektor pojemnoï¿½ci ulic.
+	 * zakres definiowany poprzez staï¿½e STREET_LOAD_LOWER_BOUND i STREET_LOAD_UPPER_BOUND.
+	 * @param numberOfEdges  Iloï¿½ï¿½ ulic- iloï¿½ï¿½ krawedzi w grafie.
 	 * @return
 	 */
 	public int[] generateStreetCapacity(int numberOfEdges){
@@ -59,9 +59,9 @@ public class DataGenerator {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Metoda generuje wektor pojemnoœci parkingów.
-	 * zakres definiowany poprzez sta³e PARKING_LOAD_LOWER_BOUND i PARKING_LOAD_UPPER_BOUND.
-	 * @param numberOfEdges  Iloœæ ulic- iloœæ krawedzi w grafie.
+	 * Metoda generuje wektor pojemnoï¿½ci parkingï¿½w.
+	 * zakres definiowany poprzez staï¿½e PARKING_LOAD_LOWER_BOUND i PARKING_LOAD_UPPER_BOUND.
+	 * @param numberOfEdges  Iloï¿½ï¿½ ulic- iloï¿½ï¿½ krawedzi w grafie.
 	 * @return
 	 */
 	public int[] generateCarParksCapacity(int numberOfCarParks){
@@ -79,8 +79,8 @@ public class DataGenerator {
 	
 
 	/**
-	 * Metoda zwraca listê wygenerowanych pojazdów
-	 * @param numberOfVehicles - iloœæ pojazdów do wygenerowania.
+	 * Metoda zwraca listï¿½ wygenerowanych pojazdï¿½w
+	 * @param numberOfVehicles - iloï¿½ï¿½ pojazdï¿½w do wygenerowania.
 	 * @return
 	 */
 	public TreeMap<Integer, Vehicle> generateVehicles(int numberOfVehicles, String[] positions){
@@ -100,9 +100,9 @@ public class DataGenerator {
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Metoda generuj¹ca plan dnia dla danego pojazdu w witualnym modelu symulacji
-	 * @param vehicle			pojazd dla którego generowany bêdzie plan
-	 * @param numberofEvents	ilosc wydarzen które maj¹ siê znaleŸæ na liœcie danego poajzdu.
+	 * Metoda generujï¿½ca plan dnia dla danego pojazdu w witualnym modelu symulacji
+	 * @param vehicle			pojazd dla ktï¿½rego generowany bï¿½dzie plan
+	 * @param numberofEvents	ilosc wydarzen ktï¿½re majï¿½ siï¿½ znaleï¿½ï¿½ na liï¿½cie danego poajzdu.
 	 */
 	private void generateVehicleDayPlan(Vehicle vehicle, int numberOfEvents, String[] places){
 		
@@ -138,8 +138,8 @@ public class DataGenerator {
 	public static void main(String[] args){
 		
 		DataGenerator dataGenerator = new DataGenerator();
-		printTable(dataGenerator.generateStreetCapacity(10), "Obci¹zenie ulic:");
-		printTable(dataGenerator.generateCarParksCapacity(10), "Obci¹zenie ulic:");
+		printTable(dataGenerator.generateStreetCapacity(10), "Obciï¿½zenie ulic:");
+		printTable(dataGenerator.generateCarParksCapacity(10), "Obciï¿½zenie ulic:");
 		System.out.println(dataGenerator.generateVehicles(10, new String[]{"aaa","bbb","ccc"}));
 	}
 }
