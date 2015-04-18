@@ -5,10 +5,9 @@ import java.util.Comparator;
 /**
  * @author Tomek
  */
-public class ComparatorID implements Comparator<Node> {
-
+public class ComparatorFile  implements Comparator<ToSort>{
     @Override
-    public int compare(Node n1, Node n2) {
+    public int compare(ToSort n1, ToSort n2) {
         return  n1.getId()-n2.getId();
     }
 }

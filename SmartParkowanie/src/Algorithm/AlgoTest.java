@@ -9,8 +9,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,15 +46,23 @@ public class AlgoTest extends javax.swing.JFrame {
         txtMapFile = new javax.swing.JTextField();
         btnLoad = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        txtList = new javax.swing.JTextPane();
         btnFindStartNode = new javax.swing.JButton();
         btnFindEndNode = new javax.swing.JButton();
+        chkStart = new javax.swing.JCheckBox();
+        chkEnd = new javax.swing.JCheckBox();
+        chkMap = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtStartLat.setText("50");
+        txtStartLat.setText("50.058");
 
-        txtStartLon.setText("19");
+        txtStartLon.setText("19.87");
+        txtStartLon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStartLonActionPerformed(evt);
+            }
+        });
 
         txtEndLat.setText("50.08");
 
@@ -74,7 +84,7 @@ public class AlgoTest extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(txtList);
 
         btnFindStartNode.setText("Znajdź start");
         btnFindStartNode.addActionListener(new java.awt.event.ActionListener() {
@@ -98,44 +108,58 @@ public class AlgoTest extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtMapFile, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(txtStartLat, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtStartLon, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtMapFile, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(txtStartLat, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtStartLon, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkStart)
+                                    .addComponent(chkMap)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtEndLat, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEndLon, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(36, 36, 36)
+                                .addComponent(txtEndLon, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chkEnd)))
+                        .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnFindEndNode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnLoad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnFindStartNode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(btnFindStartNode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMapFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLoad))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtMapFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLoad))
+                    .addComponent(chkMap))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtStartLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStartLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFindStartNode, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEndLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEndLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFindEndNode, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtStartLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtStartLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnFindStartNode, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(chkStart))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEndLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEndLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFindEndNode, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(chkEnd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFind)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
@@ -148,7 +172,23 @@ public class AlgoTest extends javax.swing.JFrame {
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
         dijkstra = new Dijkstra();
-        dijkstra.find(list, WIDTH, WIDTH);
+        list.clear();
+        
+        try {
+            czytaj_f_graf(list);
+        } catch (IOException ex) {
+            Logger.getLogger(AlgoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dijkstra.find(list, start, end);
+        ArrayList<TempNode> path=dijkstra.show_droga(list, nodeList, wayList, end);
+        for(int i=0;i<path.size();i++){
+           String text= txtList.getText();
+           text+=Double.toString(path.get(i).getSzerokosc());
+           text+=" - ";
+           text+=Double.toString(path.get(i).getDlugosc());
+           text+="\n";
+            txtList.setText(text);
+        }
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
@@ -164,11 +204,21 @@ public class AlgoTest extends javax.swing.JFrame {
 
     private void btnFindStartNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindStartNodeActionPerformed
         start = findNode(nodeList, txtStartLat.getText(), txtStartLon.getText());
+        if (start > 0) {
+            chkStart.setSelected(true);
+        }
     }//GEN-LAST:event_btnFindStartNodeActionPerformed
 
     private void btnFindEndNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindEndNodeActionPerformed
         end = findNode(nodeList, txtEndLat.getText(), txtEndLon.getText());
+        if (end > 0) {
+            chkEnd.setSelected(true);
+        }
     }//GEN-LAST:event_btnFindEndNodeActionPerformed
+
+    private void txtStartLonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartLonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStartLonActionPerformed
     private int findNode(ArrayList<TempNode> nodeList, String _Lat, String _Lon) {
         double lat = Double.parseDouble(_Lat);
         double lon = Double.parseDouble(_Lon);
@@ -206,12 +256,15 @@ public class AlgoTest extends javax.swing.JFrame {
             line = line.replace("(", "");
             line = line.replace(")", "");
             String[] split = line.split(",");
-
+            if (split.length != 3) {
+                line = br.readLine();
+                continue;
+            }
             id1 = Integer.parseInt(split[0]);
             dl = Integer.parseInt(split[1]);
             id2 = Integer.parseInt(split[2]);
 
-            int indeks = find_lista3(lista, id1);//tu jest wyszukiwanie binarne a moze byc w czasie stalym
+            int indeks = find_lista3(lista, id1);
 
             if (indeks != 0) {
             } else {
@@ -226,7 +279,7 @@ public class AlgoTest extends javax.swing.JFrame {
                 pseek = pseek.getNext();
             }
             pseek.setNext(ntemp);
-
+            line = br.readLine();
         }
         br.close();
         Collections.sort(list, new ComparatorID());
@@ -253,12 +306,7 @@ public class AlgoTest extends javax.swing.JFrame {
         while (line != null) {
             i = 3;
 
-            if (!way   {
-                line.charAt(2) == '<'  
-            }
-            get_slowo(line, i).equals("way id")
-            
-                ) {
+            if (!way && line.charAt(2) == '<' && get_slowo(line, i).equals("way id")) {
                 way = true;
             }
             if (!way) {
@@ -270,8 +318,41 @@ public class AlgoTest extends javax.swing.JFrame {
         }
 
         br.close();
+       
         zapis_mapy(node_list, way_list);
+        posortuj_plik();
+        czytaj_f_graf(list);
+        cleanNodeList(node_list);
     }
+    
+    private void cleanNodeList(ArrayList<TempNode> node_list){
+        for(int i=node_list.size()-1;i>=0;i--){
+            if(find_lista2(list,node_list.get(i).getId())==-1){
+                node_list.remove(i);
+            }
+        }
+
+    }
+    
+     int find_lista2(ArrayList<Node> lista, int id) {
+        int d = lista.size();
+
+        int ip = 0;
+        int ik = d - 1;
+        int isr;
+        while (ip <= ik) {
+            isr = (ip + ik) >> 1;// szybkie dzielenie na dwa
+            if (lista.get(isr).getId() == id) {
+                return isr;
+            } else if (id < lista.get(isr).getId()) {
+                ik = isr - 1;
+            } else {
+                ip = isr + 1;
+            }
+        }
+        return -1;
+    }
+
 
     private void czytaj_nody(String linijka, ArrayList<TempNode> node_list) {
         int temp_id = 0;
@@ -284,17 +365,22 @@ public class AlgoTest extends javax.swing.JFrame {
 
             if (Character.isLetter(linijka.charAt(i))) {
                 String temp_String = get_slowo(linijka, i);
-
+                i = i + temp_String.length();
                 if (temp_String.equals("node id")) {
                     i = i + 2;
                     temp_id = get_number_i(linijka, i);
+                    i = i + Integer.toString(temp_id).length();
                     right = true;
                 } else if (temp_String.equals("lat")) {
                     i = i + 2;
-                    temp_szerokosc = get_number_d(linijka, i);
+                    String tempStr = getDouble(linijka, i);
+                    temp_szerokosc = Double.parseDouble(tempStr);
+                    i = i + tempStr.length();
                 } else if (temp_String.equals("lon")) {
                     i = i + 2;
-                    temp_dlugosc = get_number_d(linijka, i);
+                    String tempStr = getDouble(linijka, i);
+                    temp_dlugosc = Double.parseDouble(tempStr);
+                    i = i + tempStr.length();
                 }
 
             }
@@ -307,47 +393,46 @@ public class AlgoTest extends javax.swing.JFrame {
     private void czytaj_droge(String linijka, ArrayList<TempWay> way_list) {
         int temp_id;
         int temp_ref;
-        boolean highway = false;
         int d = linijka.length();
         int licznik = 0;
 
         for (int i = 0; i < d; i++) {
             if (Character.isLetter(linijka.charAt(i))) {
                 String temp_String = get_slowo(linijka, i);
-                if (temp_String == "way id") {
+                i = i + temp_String.length();
+                if (temp_String.equals("way id")) {
                     i = i + 2;
                     temp_id = get_number_i(linijka, i);
+                    i = i + Integer.toString(temp_id).length();
                     way_list.add(new TempWay(temp_id));
-                } else if (temp_String == "nd ref") {
+                } else if (temp_String.equals("nd ref")) {
                     i = i + 2;
                     temp_ref = get_number_i(linijka, i);
+                    i = i + Integer.toString(temp_ref).length();
                     way_list.get(way_list.size() - 1).getSciezka().add(temp_ref);
                 } else if (temp_String.equals("tag k")) {
                     i += 2;
                     String temp_String2 = get_slowo(linijka, i);
-                    if (temp_String2 == "highway") {
+                    i = i + temp_String2.length();
+                    if (temp_String2.equals("highway")) {
                         highway = true;
                         licznik++;
-                    } else if (temp_String2 == "name") {
+                    } else if (temp_String2.equals("name")) {
                         i += 5;
-                        way_list.get(way_list.size() - 1).setNazwa(get_slowo(linijka, i));
-                    } else if (temp_String2 == "oneway") {
+                        String nazwa = get_slowo(linijka, i);
+                        i = i + nazwa.length();
+                        way_list.get(way_list.size() - 1).setNazwa(nazwa);
+                    } else if (temp_String2.equals("oneway")) {
                         i += 5;
-                        if (get_slowo(linijka, i) == "yes") {
+                        String tempString4 = get_slowo(linijka, i);
+                        i = i + tempString4.length();
+                        if (tempString4.equals("yes")) {
                             way_list.get(way_list.size() - 1).setOneway(true);
                         }
                     }
                 }
-                if (temp_String == "way"   {
-                    linijka.charAt(i) == '>'
-                }
-                
-                    ) {
-                    if (!way_list.isEmpty()   {
-                        highway == true
-                    }
-                    
-                        ) {
+                if (temp_String.equals("way") && linijka.charAt(i) == '>') {
+                    if (!way_list.isEmpty() && highway == false) {
                         way_list.remove(way_list.size() - 1);
                     }
                     highway = false;
@@ -356,10 +441,10 @@ public class AlgoTest extends javax.swing.JFrame {
             }
 
         }
-        //  if (!way_list.empty()  highway==0){way_list.pop_back(); }//zeby usunac ostatnie
-    }// usunac ostanie
+        
+    }
 
-    private String get_slowo(String s, Integer i) {
+    private String get_slowo(String s, int i) {
         String wynik = "";
         while (Character.isLetter(s.charAt(i)) || s.charAt(i) == ' ') {
             wynik += s.charAt(i);
@@ -368,7 +453,7 @@ public class AlgoTest extends javax.swing.JFrame {
         return wynik;
     }
 
-    private int get_number_i(String s, Integer i) {
+    private int get_number_i(String s, int i) {
         int wynik = 0;
         while (Character.isDigit(s.charAt(i))) {
             wynik = wynik * 10 + s.charAt(i) - '0';
@@ -377,48 +462,24 @@ public class AlgoTest extends javax.swing.JFrame {
         return wynik;
     }
 
-    double get_number_d(String s, Integer i) {
-        int temp_i = i;
-        int komma = 0;
-        boolean minus = false;
-        if (s.charAt(i) == '-') {
-            minus = true;
+    String getDouble(String line, int i) {
+        String result = "";
+        while (Character.isDigit(line.charAt(i)) || line.charAt(i) == '.' || line.charAt(i) == '.') {
+            result += line.charAt(i);
             i++;
         }
-        double wynik = 0;
-
-        while (Character.isDigit(s.charAt(i)) || s.charAt(i) == '.') {
-
-            if (Character.isDigit(s.charAt(i))) {
-                wynik = wynik * 10 + (int) s.charAt(i) - '0';
-            } else {
-                temp_i = i;
-            }
-            i++;
-        }
-        komma = i - temp_i - 1;
-        if (minus) {
-            wynik *= (-1);
-        }
-        if (komma != 0) {
-            return wynik / Math.pow(10, komma);
-        } else {
-            return wynik;
-        }
-
+        return result;
     }
 
-    private void zapis_mapy(ArrayList<TempNode> node_list, ArrayList<TempWay> way_list) {
-
-        fstream plik;
-        plik.open("mapa_nowa.txt", ios::out);
+    private void zapis_mapy(ArrayList<TempNode> node_list, ArrayList<TempWay> way_list) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter("mapa_nowa.txt");
 
         int d = way_list.size();
         for (int i = 0; i < d; i++) {
-            plik << make_map(node_list, way_list.get(i));
+            writer.print(make_map(node_list, way_list.get(i)));
         }
 
-        plik.close();
+        writer.close();
     }
 
     private String make_map(ArrayList<TempNode> node_list, TempWay way) {
@@ -444,7 +505,7 @@ public class AlgoTest extends javax.swing.JFrame {
                 temp_String += way.sciezka.get(i + 1).toString() + ")\n";
             }
         } else {
-            TempNode prev_node = find_node(node_list, way.sciezka[0]);
+            TempNode prev_node = find_node(node_list, way.sciezka.get(0));
             TempNode next_node = prev_node;
             String temp_droga = "";
 
@@ -455,7 +516,7 @@ public class AlgoTest extends javax.swing.JFrame {
 
                 next_node = find_node(node_list, way.sciezka.get(i + 1));
 
-                temp_droga = Integer.toString(prev_node.minus(next_node) + ",";
+                temp_droga = Integer.toString(prev_node.minus(next_node)) + ",";
                 prev_node = next_node;
                 temp_String += "(" + way.sciezka.get(i).toString() + ",";
                 temp_String += temp_droga;
@@ -489,6 +550,29 @@ public class AlgoTest extends javax.swing.JFrame {
             }
         }
         return new TempNode(0, 0, 0);
+    }
+
+    void posortuj_plik() throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader("mapa_nowa.txt"));
+        String line = br.readLine();
+        LinkedList<ToSort> listToSort = new LinkedList<>();
+
+        while (line != null) {
+            ToSort toSort = new ToSort();
+            toSort.setId(get_number_i(line, 1));
+            toSort.setLinijka(line);
+            listToSort.add(toSort);
+            line = br.readLine();
+        }
+        br.close();
+        Collections.sort(listToSort, new ComparatorFile());
+        PrintWriter writer = new PrintWriter("mapa_nowa.txt", "UTF-8");
+
+        while (listToSort.size() != 0) {
+            writer.println(listToSort.getFirst().getLinijka());
+            listToSort.removeFirst();
+        }
+        writer.close();
     }
 
     /**
@@ -536,16 +620,20 @@ public class AlgoTest extends javax.swing.JFrame {
     ArrayList<TempWay> wayList;
     int start;
     int end;
+    boolean highway = false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnFindEndNode;
     private javax.swing.JButton btnFindStartNode;
     private javax.swing.JButton btnLoad;
+    private javax.swing.JCheckBox chkEnd;
+    private javax.swing.JCheckBox chkMap;
+    private javax.swing.JCheckBox chkStart;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextField txtEndLat;
     private javax.swing.JTextField txtEndLon;
+    private javax.swing.JTextPane txtList;
     private javax.swing.JTextField txtMapFile;
     private javax.swing.JTextField txtStartLat;
     private javax.swing.JTextField txtStartLon;

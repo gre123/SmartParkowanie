@@ -20,6 +20,22 @@ public class TempNode {
     double szerokosc;
     double dlugosc;
 
+    public double getSzerokosc() {
+        return szerokosc;
+    }
+
+    public void setSzerokosc(double szerokosc) {
+        this.szerokosc = szerokosc;
+    }
+
+    public double getDlugosc() {
+        return dlugosc;
+    }
+
+    public void setDlugosc(double dlugosc) {
+        this.dlugosc = dlugosc;
+    }
+
     public int getId() {
         return id;
     }
@@ -36,10 +52,11 @@ public class TempNode {
 
     int minus(TempNode b) {
         double PI = 3.1415;
-        return (int)(sqrt(pow(cos(PI * szerokosc / 180) * (b.dlugosc - dlugosc), 2) + pow((b.szerokosc - szerokosc), 2)) * PI * 12765.274 / 360) * 1000;
+        double wynik=(sqrt(pow(cos(PI * szerokosc / 180) * (b.dlugosc - dlugosc), 2) + pow((b.szerokosc - szerokosc), 2)) * PI * 12765.274 / 360) * 1000;
+        return (int)wynik;
     }
 
-    TempNode find_node(ArrayList<TempNode> node_list, int a) {
+    static TempNode find_node(ArrayList<TempNode> node_list, int a) {
         int d = node_list.size();
 
         int ip = 0;

@@ -16,6 +16,7 @@ public class TempWay {
     TempWay(int a) {
         wid = a;
         oneway = false;
+        sciezka=new ArrayList<>();
     }
 
     public int getWid() {

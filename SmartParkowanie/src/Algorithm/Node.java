@@ -59,12 +59,12 @@ public class Node {
         next = null;
         id = id2;
         droga = 200000000;
-        poprzedni = 0;
+        poprzedni = -1;
     }
 
     Node() {
         next = null;
         droga = 200000000;
-        poprzedni = 0;
+        poprzedni = -1;
     }
 }
