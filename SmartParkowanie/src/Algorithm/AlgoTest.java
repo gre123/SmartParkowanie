@@ -179,8 +179,8 @@ public class AlgoTest extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(AlgoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dijkstra.find(list, start, end);
-        ArrayList<TempNode> path=dijkstra.show_droga(list, nodeList, wayList, end);
+        dijkstra.find(list, start);
+        ArrayList<CordNode> path=dijkstra.show_droga(list, nodeList, wayList, end);
         for(int i=0;i<path.size();i++){
            String text= txtList.getText();
            text+=Double.toString(path.get(i).getSzerokosc());
@@ -219,12 +219,12 @@ public class AlgoTest extends javax.swing.JFrame {
     private void txtStartLonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartLonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStartLonActionPerformed
-    private int findNode(ArrayList<TempNode> nodeList, String _Lat, String _Lon) {
+    private int findNode(ArrayList<CordNode> nodeList, String _Lat, String _Lon) {
         double lat = Double.parseDouble(_Lat);
         double lon = Double.parseDouble(_Lon);
         int result = -1;
 
-        TempNode baseNode = new TempNode(1, lat, lon);
+        CordNode baseNode = new CordNode(1, lat, lon);
         int d = nodeList.size();
         double min_odl = nodeList.get(0).minus(baseNode);
         int min_id = nodeList.get(0).getId();
@@ -282,7 +282,7 @@ public class AlgoTest extends javax.swing.JFrame {
             line = br.readLine();
         }
         br.close();
-        Collections.sort(list, new ComparatorID());
+        Collections.sort(lista, new ComparatorID());
     }
 
     private int find_lista3(ArrayList<Node> lista, int id) {
@@ -296,7 +296,7 @@ public class AlgoTest extends javax.swing.JFrame {
         return 0;
     }
 
-    private void parser(ArrayList<TempNode> node_list, ArrayList<TempWay> way_list) throws FileNotFoundException, IOException {
+    private void parser(ArrayList<CordNode> node_list, ArrayList<Way> way_list) throws FileNotFoundException, IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(txtMapFile.getText()));
 
@@ -325,7 +325,7 @@ public class AlgoTest extends javax.swing.JFrame {
         cleanNodeList(node_list);
     }
     
-    private void cleanNodeList(ArrayList<TempNode> node_list){
+    private void cleanNodeList(ArrayList<CordNode> node_list){
         for(int i=node_list.size()-1;i>=0;i--){
             if(find_lista2(list,node_list.get(i).getId())==-1){
                 node_list.remove(i);
@@ -354,7 +354,7 @@ public class AlgoTest extends javax.swing.JFrame {
     }
 
 
-    private void czytaj_nody(String linijka, ArrayList<TempNode> node_list) {
+    private void czytaj_nody(String linijka, ArrayList<CordNode> node_list) {
         int temp_id = 0;
         double temp_dlugosc = 0;
         double temp_szerokosc = 0;
@@ -386,11 +386,11 @@ public class AlgoTest extends javax.swing.JFrame {
             }
         }
         if (right) {// jesli nowy werzocholek i prawidlowy dodaj do listy wierzcholkow
-            node_list.add(new TempNode(temp_id, temp_szerokosc, temp_dlugosc));
+            node_list.add(new CordNode(temp_id, temp_szerokosc, temp_dlugosc));
         }
     }
 
-    private void czytaj_droge(String linijka, ArrayList<TempWay> way_list) {
+    private void czytaj_droge(String linijka, ArrayList<Way> way_list) {
         int temp_id;
         int temp_ref;
         int d = linijka.length();
@@ -404,7 +404,7 @@ public class AlgoTest extends javax.swing.JFrame {
                     i = i + 2;
                     temp_id = get_number_i(linijka, i);
                     i = i + Integer.toString(temp_id).length();
-                    way_list.add(new TempWay(temp_id));
+                    way_list.add(new Way(temp_id));
                 } else if (temp_String.equals("nd ref")) {
                     i = i + 2;
                     temp_ref = get_number_i(linijka, i);
@@ -471,7 +471,7 @@ public class AlgoTest extends javax.swing.JFrame {
         return result;
     }
 
-    private void zapis_mapy(ArrayList<TempNode> node_list, ArrayList<TempWay> way_list) throws FileNotFoundException {
+    private void zapis_mapy(ArrayList<CordNode> node_list, ArrayList<Way> way_list) throws FileNotFoundException {
         PrintWriter writer = new PrintWriter("mapa_nowa.txt");
 
         int d = way_list.size();
@@ -482,13 +482,13 @@ public class AlgoTest extends javax.swing.JFrame {
         writer.close();
     }
 
-    private String make_map(ArrayList<TempNode> node_list, TempWay way) {
+    private String make_map(ArrayList<CordNode> node_list, Way way) {
         int d = way.sciezka.size() - 1;
         String temp_String = "";
 
         if (way.isOneway() == true) {
-            TempNode prev_node = find_node(node_list, way.sciezka.get(0));
-            TempNode next_node = prev_node;
+            CordNode prev_node = find_node(node_list, way.sciezka.get(0));
+            CordNode next_node = prev_node;
             String temp_droga = "";
             for (int i = 0; i < d; i++) {
                 if (next_node.id == 0 || prev_node.id == 0) {
@@ -505,8 +505,8 @@ public class AlgoTest extends javax.swing.JFrame {
                 temp_String += way.sciezka.get(i + 1).toString() + ")\n";
             }
         } else {
-            TempNode prev_node = find_node(node_list, way.sciezka.get(0));
-            TempNode next_node = prev_node;
+            CordNode prev_node = find_node(node_list, way.sciezka.get(0));
+            CordNode next_node = prev_node;
             String temp_droga = "";
 
             for (int i = 0; i < d; i++) {
@@ -531,7 +531,7 @@ public class AlgoTest extends javax.swing.JFrame {
         return temp_String;
     }
 
-    TempNode find_node(ArrayList<TempNode> node_list, int a) {
+    CordNode find_node(ArrayList<CordNode> node_list, int a) {
         int d = node_list.size();
 
         int ip = 0;
@@ -549,7 +549,7 @@ public class AlgoTest extends javax.swing.JFrame {
                 ip = isr + 1;
             }
         }
-        return new TempNode(0, 0, 0);
+        return new CordNode(0, 0, 0);
     }
 
     void posortuj_plik() throws FileNotFoundException, IOException {
@@ -616,8 +616,8 @@ public class AlgoTest extends javax.swing.JFrame {
     }
     Dijkstra dijkstra;
     ArrayList<Node> list;
-    ArrayList<TempNode> nodeList;
-    ArrayList<TempWay> wayList;
+    ArrayList<CordNode> nodeList;
+    ArrayList<Way> wayList;
     int start;
     int end;
     boolean highway = false;

@@ -1,7 +1,7 @@
-
 package AdministrationGui;
 
-
+import Algorithm.CordNode;
+import Algorithm.ParkFinder;
 import Model.CarMarker;
 import Model.LabeledMarker;
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -12,7 +12,10 @@ import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PVector;
@@ -25,7 +28,9 @@ public class AdminMap extends PApplet{
     Location carLocation;
     MarkerManager markerManager;
     SimplePointMarker carMarker;
+    ParkFinder parkFinder;
     
+    @Override
     public void setup() {
         size(1250, 700);
         map = new UnfoldingMap(this);
@@ -41,35 +46,66 @@ public class AdminMap extends PApplet{
         map.zoomAndPanTo(AGHLocation, 17);
         map.setPanningRestriction(AGHLocation, 0);
         map.setZoomRange(17, 17);
+        
+        parkFinder=new ParkFinder();
+        try {
+            parkFinder.readMap();
+        } catch (IOException ex) {
+            Logger.getLogger(AdminMap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
  
     public void up()
     {
         carLocation.add(new PVector(0.0001f,0,0));
+        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon());
         this.repaint();
     }
     
     public void down()
     {
         carLocation.add(new PVector(-0.0001f,0,0));
+        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon());
         this.repaint();
     }
      
     public void left()
     {
         carLocation.add(new PVector(0,-0.0001f,0));
+        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon());
         this.repaint();
     }
       
       
-    public void right()
+    public void right() 
     {
         carLocation.add(new PVector(0,0.0001f,0));
+        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon());
         this.repaint();
     }
        
     public void draw() {
         map.draw();
+    }
+    
+    private void drawPathToNearestParking(ArrayList<CordNode> path){
+        
+        ArrayList<LabeledMarker> dotPath = new ArrayList<>();
+        for(int i=0;i>path.size();i++){
+         
+       dotPath.add(new LabeledMarker(new Location(path.get(i).getSzerokosc(), path.get(i).getDlugosc()), "",1));
+       
+       for(LabeledMarker park: dotPath)
+       {
+           park.setColor(Color.CYAN.hashCode());
+           park.setStrokeColor(Color.CYAN.hashCode());
+           park.setRadius(12);
+           park.setSelected(true);
+       }
+       markerManager.addMarkers(dotPath);
+      
+        }
     }
     
     @Override

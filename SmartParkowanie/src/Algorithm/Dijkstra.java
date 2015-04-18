@@ -8,8 +8,8 @@ import java.util.LinkedList;
  */
 public class Dijkstra {
 
-    void find(ArrayList<Node> lista, int aw, int bw) {
-        //priority_queue<Queue,vector<Queue>,less<Queue> > kol_pri;
+    void find(ArrayList<Node> lista, int aw) {
+
         LinkedList<Queue> kol_pri = new LinkedList<>();
         int ind = find_lista2(lista, aw);
         lista.get(ind).setDroga(0);
@@ -40,7 +40,7 @@ public class Dijkstra {
                 }
                 pseek = pseek.getNext();
             }
-            int ind2 = find_lista2(lista, bw);
+            //int ind2 = find_lista2(lista, bw);
             //  if (lista.get(ind2).getDroga() < kol_pri.getLast().getWart()) {
             //      break;
             //}//przyspieszacz!!!
@@ -53,10 +53,10 @@ public class Dijkstra {
 
     }
 
-     ArrayList<TempNode> show_droga(ArrayList<Node> lista, ArrayList<TempNode> node_list, ArrayList<TempWay> way_list, int bw) {
+     ArrayList<CordNode> show_droga(ArrayList<Node> lista, ArrayList<CordNode> node_list, ArrayList<Way> way_list, int bw) {
         int i = find_lista2(lista, bw);
         ArrayList<Integer> droga = new ArrayList<>();
-        ArrayList<TempNode> path=new ArrayList<>();
+        ArrayList<CordNode> path=new ArrayList<>();
         while (lista.get(i).getPoprzedni() != -1) {
             droga.add(lista.get(find_lista(lista, lista.get(i).getPoprzedni())).getId());//System.out.println(lista.get(i).poprzedni<<endl;
             i = find_lista(lista, lista.get(i).getPoprzedni());
@@ -65,7 +65,7 @@ public class Dijkstra {
         int d = droga.size();
         String prev_s = "";
         for (i = d - 1; i >= 0; i--) {
-            TempNode tn = TempNode.find_node(node_list, droga.get(i));
+            CordNode tn = CordNode.find_node(node_list, droga.get(i));
             path.add(tn);
             System.out.println(tn.getSzerokosc() + " - " + tn.getDlugosc());
         }
