@@ -8,46 +8,79 @@ import java.util.LinkedList;
  */
 public class Dijkstra {
 
-    void find(ArrayList<Node> lista, int aw, int bw) {
-        //priority_queue<Queue,vector<Queue>,less<Queue> > kol_pri;
-        LinkedList<Queue> kol_pri = new LinkedList<Queue>();
+    void find(ArrayList<Node> lista, int aw) {
 
-        lista.get(aw).setDroga(0);
+        LinkedList<Queue> kol_pri = new LinkedList<>();
+        int ind = find_lista2(lista, aw);
+        lista.get(ind).setDroga(0);
         Queue q = new Queue();
-        q.setId(lista.get(aw).getId());
+        q.setId(lista.get(ind).getId());
         q.setWart(0);
-        kol_pri.push(null);//push(Queue{lista[aw].id,0});
+        kol_pri.add(q);//push(Queue{lista[aw].id,0});
 
-        Node temp = lista.get(aw);
-        Node pseek = lista.get(aw);
-        int bleble = 0;
+        Node temp = lista.get(ind);
+        Node pseek = lista.get(ind);
+        int postep = 0;
 
         while (kol_pri.size() != 0) {
-            if ((bleble++) % 1000 == 0) {
-                System.out.println((int) ((double) (bleble)) / lista.size() * 100 + "% ");
+            kol_pri.removeLast();
+            postep++;
+            if ((postep) % 1000 == 0) {
+                System.out.println((int)( ((double) (postep)) / lista.size() * 100) + "% ");
             }
-            // kolejka.pop_back();//sortowanie musi byc malejace
 
             while (pseek.getNext() != null) {
                 int indeks = find_lista2(lista, pseek.getNext().getId());
 
-                if (lista.get(indeks).getDroga() > temp.getDroga() + pseek.next.getDl()) {
-                    lista.get(indeks).setDroga(temp.getDroga() + pseek.next.getDl());
+                if (lista.get(indeks).getDroga() > temp.getDroga() + pseek.getNext().getDl()) {
+                    lista.get(indeks).setDroga(temp.getDroga() + pseek.getNext().getDl());
 
-                    update_kol(kol_pri, pseek.next.id, lista.get(indeks).getDroga());//moze zmienic indeks
-
+                    update_kol(kol_pri, pseek.getNext().getId(), lista.get(indeks).getDroga());//moze zmienic indeks
                     lista.get(indeks).setPoprzedni(temp.getId());
                 }
                 pseek = pseek.getNext();
             }
-
-            if (lista.get(bw).getDroga() < kol_pri.getLast().getWart()) {
+            //int ind2 = find_lista2(lista, bw);
+            //  if (lista.get(ind2).getDroga() < kol_pri.getLast().getWart()) {
+            //      break;
+            //}//przyspieszacz!!!
+            if (kol_pri.size() > 0) {
+                temp = pseek = lista.get(find_lista2(lista, kol_pri.getLast().getId()));
+            } else {
                 break;
-            }//przyspieszacz!!!
-
-            temp = pseek = lista.get(find_lista2(lista, kol_pri.getLast().getId()));
-            kol_pri.pop();//usuniecie pierwszego
+            }
         }
+
+    }
+
+     ArrayList<CordNode> show_droga(ArrayList<Node> lista, ArrayList<CordNode> node_list, ArrayList<Way> way_list, int bw) {
+        int i = find_lista2(lista, bw);
+        ArrayList<Integer> droga = new ArrayList<>();
+        ArrayList<CordNode> path=new ArrayList<>();
+        while (lista.get(i).getPoprzedni() != -1) {
+            droga.add(lista.get(find_lista(lista, lista.get(i).getPoprzedni())).getId());//System.out.println(lista.get(i).poprzedni<<endl;
+            i = find_lista(lista, lista.get(i).getPoprzedni());
+        }
+
+        int d = droga.size();
+        String prev_s = "";
+        for (i = d - 1; i >= 0; i--) {
+            CordNode tn = CordNode.find_node(node_list, droga.get(i));
+            path.add(tn);
+            System.out.println(tn.getSzerokosc() + " - " + tn.getDlugosc());
+        }
+        return path;
+    }
+
+    int find_lista(ArrayList<Node> lista, int id) {
+        int d = lista.size();
+        int i;
+        for (i = 0; i < d; i++) {
+            if (lista.get(i).getId() == id) {
+                return i;
+            }
+        }
+        return 0;
 
     }
 
@@ -72,25 +105,34 @@ public class Dijkstra {
 
     void update_kol(LinkedList<Queue> kol_pri, int id, int droga) {
         LinkedList<Queue> temp_v = new LinkedList<>();
-
-        while (kol_pri.size() != 0 && kol_pri.getLast().id != id) {
+        boolean found = false;
+        int droga2 = 0;
+        while (kol_pri.size() != 0 && kol_pri.getLast().getWart() < droga) {
+            if (kol_pri.getLast().getId() == id) {
+                found = true;
+                droga2 = kol_pri.getLast().getWart();
+            }
             temp_v.add(kol_pri.getLast());
-            kol_pri.pop();
+            kol_pri.removeLast();
         }
-        if (kol_pri.size() == 0) {
+        if (!found) {
+
             Queue q = new Queue();
             q.setId(id);
             q.setWart(droga);
-            kol_pri.push(q);
+            kol_pri.add(q);
+
         } else {
-            Queue temp_elk = kol_pri.getLast();
-            kol_pri.pop();
-            temp_elk.wart = droga;
-            kol_pri.push(temp_elk);
+            while (kol_pri.size() != 0) {
+                if (kol_pri.getLast().getId() == id) {
+                    kol_pri.removeLast();
+                    break;
+                }
+            }
         }
 
         while (temp_v.size() != 0) {
-            kol_pri.push(temp_v.getLast());
+            kol_pri.add(temp_v.getLast());
             temp_v.removeLast();
         }
     }
