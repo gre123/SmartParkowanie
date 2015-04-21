@@ -24,10 +24,10 @@ public class Dijkstra {
 
         while (kol_pri.size() != 0) {
             kol_pri.removeLast();
-            postep++;
-            if ((postep) % 1000 == 0) {
-                System.out.println((int)( ((double) (postep)) / lista.size() * 100) + "% ");
-            }
+            //postep++;
+            //if ((postep) % 1000 == 0) {
+              //  System.out.println((int)( ((double) (postep)) / lista.size() * 100) + "% ");
+            //}
 
             while (pseek.getNext() != null) {
                 int indeks = find_lista2(lista, pseek.getNext().getId());
@@ -40,10 +40,9 @@ public class Dijkstra {
                 }
                 pseek = pseek.getNext();
             }
-            //int ind2 = find_lista2(lista, bw);
-            //  if (lista.get(ind2).getDroga() < kol_pri.getLast().getWart()) {
+            //  if (5000 < kol_pri.getLast().getWart()) {
             //      break;
-            //}//przyspieszacz!!!
+            //}//szuka do 5 km!!!
             if (kol_pri.size() > 0) {
                 temp = pseek = lista.get(find_lista2(lista, kol_pri.getLast().getId()));
             } else {
@@ -54,7 +53,7 @@ public class Dijkstra {
     }
 
      ArrayList<CordNode> show_droga(ArrayList<Node> lista, ArrayList<CordNode> node_list, ArrayList<Way> way_list, int bw) {
-        int i = find_lista2(lista, bw);
+        int i = bw;
         ArrayList<Integer> droga = new ArrayList<>();
         ArrayList<CordNode> path=new ArrayList<>();
         while (lista.get(i).getPoprzedni() != -1) {
@@ -67,7 +66,7 @@ public class Dijkstra {
         for (i = d - 1; i >= 0; i--) {
             CordNode tn = CordNode.find_node(node_list, droga.get(i));
             path.add(tn);
-            System.out.println(tn.getSzerokosc() + " - " + tn.getDlugosc());
+         //   System.out.println(tn.getSzerokosc() + " - " + tn.getDlugosc());
         }
         return path;
     }
