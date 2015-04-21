@@ -40,9 +40,9 @@ public class Dijkstra {
                 }
                 pseek = pseek.getNext();
             }
-            //  if (5000 < kol_pri.getLast().getWart()) {
-            //      break;
-            //}//szuka do 5 km!!!
+              if (4000 < kol_pri.getLast().getWart()) {
+                  break;
+            }//szuka do 4 km!!!
             if (kol_pri.size() > 0) {
                 temp = pseek = lista.get(find_lista2(lista, kol_pri.getLast().getId()));
             } else {

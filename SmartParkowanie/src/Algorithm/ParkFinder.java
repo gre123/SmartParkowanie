@@ -19,6 +19,7 @@ public class ParkFinder {
     private ArrayList<Way> ways;
     private ArrayList<CordNode> path;
     private Parser parser;
+    private int parkingId;
 
     public ParkFinder() {
         nodes = new ArrayList<>();
@@ -28,6 +29,14 @@ public class ParkFinder {
         parser.setCords(cords);
         parser.setWays(ways);
         parser.setNodes(nodes);
+    }
+
+    public int getParkingId() {
+        return parkingId;
+    }
+
+    public void setParkingId(int parkingId) {
+        this.parkingId = parkingId;
     }
 
     public ArrayList<CordNode> getCords() {
@@ -124,12 +133,12 @@ public class ParkFinder {
         return -1;
     }
 
-    public void findClosestParking(double lat, double lot,ArrayList<CordNode> parkings)  {
+    public void findClosestParking(double lat, double lot, ArrayList<CordNode> parkings) {
         path = new ArrayList<>();
         int start = findNodeByCord(lat, lot);
         dijkstra = new Dijkstra();
         nodes.clear();
-        
+
         try {
             readDistancesFromFile();
         } catch (IOException ex) {
@@ -137,28 +146,31 @@ public class ParkFinder {
         }
 
         dijkstra.find(nodes, start);
-        int minDistance=200000000;
-        int closestParkingId=-1;
-        for(int i=0;i<parkings.size();i++){
-            int id =findNodeByCord(parkings.get(i).getSzerokosc(), parkings.get(i).getDlugosc());
-            id=findNodeById(id);
-            if(nodes.get(id).getDroga()<minDistance ){
-                minDistance=nodes.get(id).getDroga();
-                closestParkingId=id;
+        int minDistance = 200000000;
+        int closestParkingId = -1;
+        int parkingIndex=-1;
+        for (int i = 0; i < parkings.size(); i++) {
+            int id = findNodeByCord(parkings.get(i).getSzerokosc(), parkings.get(i).getDlugosc());
+            id = findNodeById(id);
+            if (nodes.get(id).getDroga() < minDistance) {
+                minDistance = nodes.get(id).getDroga();
+                closestParkingId = id;
+                parkingIndex=i;
             }
         }
-        if(closestParkingId!=-1){
-            path= dijkstra.show_droga(nodes, cords, ways, closestParkingId);
-        }else{
-            path=null;
+        if (closestParkingId != -1) {
+            path = dijkstra.show_droga(nodes, cords, ways, closestParkingId);
+            parkingId=parkingIndex;
+        } else {
+            path = null;
         }
-
+        
     }
 
     public void readMap() throws IOException {
         parser.parseOSMUgly();
     }
-    
+
     private void readDistancesFromFile() throws IOException {//funkcjia haszyjaca sie przyda
         BufferedReader br = new BufferedReader(new FileReader("distances.txt"));
         StringBuilder sb = new StringBuilder();
@@ -199,7 +211,7 @@ public class ParkFinder {
         br.close();
         Collections.sort(nodes, new ComparatorID());//TODO może nie potrzebne
     }
-    
+
     private int IsAllreadyAdded(ArrayList<Node> lista, int id) {
         int d = lista.size();
         if (d == 0) {

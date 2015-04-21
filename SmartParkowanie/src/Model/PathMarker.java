@@ -12,7 +12,7 @@ public class PathMarker extends SimplePointMarker {
 
     protected String name;
     protected int size=10;
-    protected PathMarker nextNode;
+    protected SimplePointMarker nextNode;
 
     public PathMarker(Location location) {
         this.location = location;
@@ -52,11 +52,11 @@ public class PathMarker extends SimplePointMarker {
         this.size = size;
     }
 
-    public PathMarker getNextNode() {
+    public SimplePointMarker getNextNode() {
         return nextNode;
     }
 
-    public void setNextNode(PathMarker nextNode) {
+    public void setNextNode(SimplePointMarker nextNode) {
         this.nextNode = nextNode;
     }
 
