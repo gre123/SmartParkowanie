@@ -34,7 +34,8 @@ public class AdminMap extends PApplet {
     ParkFinder parkFinder;
     ArrayList<PathMarker> path;
     ArrayList<LinePathMarker> pathLines;
-
+    ArrayList<LabeledMarker> carparks;
+    float step = 0.0004f;
     ArrayList<CordNode> parkings;
 
     @Override
@@ -51,7 +52,7 @@ public class AdminMap extends PApplet {
         parkings = new ArrayList<>();
         path = new ArrayList<>();
         pathLines = new ArrayList<>();
-
+        carparks = new ArrayList<>();
         addCarparks();
 
         map.zoomAndPanTo(AGHLocation, 17);
@@ -67,46 +68,45 @@ public class AdminMap extends PApplet {
     }
 
     public void up() {
-        carLocation.add(new PVector(0.0002f, 0, 0));
+        carLocation.add(new PVector(step, 0, 0));
         cleanPath();
         parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
-        drawPathToNearestParking(parkFinder.getPath());
+        drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
 
     public void down() {
-        carLocation.add(new PVector(-0.0002f, 0, 0));
+        carLocation.add(new PVector(-step, 0, 0));
         cleanPath();
         parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
-        drawPathToNearestParking(parkFinder.getPath());
+        drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
 
     public void left() {
-        carLocation.add(new PVector(0, -0.0002f, 0));
+        carLocation.add(new PVector(0, -step, 0));
         cleanPath();
         parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
-        drawPathToNearestParking(parkFinder.getPath());
+        drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
 
     public void right() {
-        carLocation.add(new PVector(0, 0.0002f, 0));
+        carLocation.add(new PVector(0, step, 0));
         cleanPath();
         parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
-        drawPathToNearestParking(parkFinder.getPath());
+        drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
 
-    public void draw() {
-        map.draw();
+    public synchronized void draw() {
+        synchronized (this) {
+            map.draw();
+        }
     }
 
     private void cleanPath() {
-        if (path == null) {
-            return;
-        }
-        synchronized (this.markerManager) {
+        synchronized (this) {
             for (int i = 0; i < path.size(); i++) {
                 markerManager.removeMarker(path.get(i));
             }
@@ -114,41 +114,43 @@ public class AdminMap extends PApplet {
                 markerManager.removeMarker(pathLines.get(i));
             }
         }
-        synchronized (this.path) {
+        synchronized (this) {
             path.clear();
-        }
-        synchronized (this.pathLines) {
             pathLines.clear();
         }
     }
 
-    private void drawPathToNearestParking(ArrayList<CordNode> cordPath) {
+    private void drawPathToNearestParking(ArrayList<CordNode> cordPath, int parkingId) {
         for (int i = 0; i < cordPath.size(); i++) {
-            synchronized (this.path) {
+            synchronized (this) {
                 path.add(new PathMarker(new Location(cordPath.get(i).getSzerokosc(), cordPath.get(i).getDlugosc())));
 
                 path.get(path.size() - 1).setColor(Color.GREEN.hashCode());
                 path.get(path.size() - 1).setSize(15);
                 path.get(path.size() - 1).setSelected(false);
-                if (i > 0) {
-                    path.get(path.size() - 1).setNextNode(path.get(path.size() - 2));
-                }
             }
+        }
+        for (int i = 0; i < path.size() - 1; i++) {
+            path.get(i).setNextNode(path.get(i + 1));
+        }
+        if (parkingId >= 0) {
+            path.get(path.size() - 1).setNextNode(carparks.get(parkingId));
         }
         for (PathMarker mark : path) {
             if (mark.getNextNode() != null) {
 
                 LinePathMarker connectionMarker = new LinePathMarker(mark.getLocation(), mark.getNextNode().getLocation());
-                synchronized (this.pathLines) {
+                synchronized (this) {
                     pathLines.add(connectionMarker);
                 }
                 connectionMarker.setColor(Color.ORANGE.hashCode());
 
             }
         }
-        markerManager.addMarkers(pathLines);
-        markerManager.addMarkers(path);
-
+        synchronized (this) {
+            markerManager.addMarkers(pathLines);
+            markerManager.addMarkers(path);
+        }
     }
 
     @Override
@@ -192,7 +194,6 @@ public class AdminMap extends PApplet {
      * Ręczne dodawanie parkingów
      */
     public void addCarparks() {
-        ArrayList<LabeledMarker> carparks = new ArrayList<LabeledMarker>();
 
         carparks.add(new LabeledMarker(new Location(50.06682f, 19.91584f), "parking 1 - miejsce na info:\n\nIlość wolnych miejsc : 30"
                 + "\nStatus : Dostępny", 4));
