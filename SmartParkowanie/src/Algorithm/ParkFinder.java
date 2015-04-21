@@ -124,7 +124,7 @@ public class ParkFinder {
         return -1;
     }
 
-    public ArrayList<CordNode> findClosestParking(double lat, double lot)  {
+    public void findClosestParking(double lat, double lot,ArrayList<CordNode> parkings)  {
         path = new ArrayList<>();
         int start = findNodeByCord(lat, lot);
         dijkstra = new Dijkstra();
@@ -137,8 +137,22 @@ public class ParkFinder {
         }
 
         dijkstra.find(nodes, start);
-        //path=dijkstra.show_droga(nodes, cords, ways, end);
-        return path;
+        int minDistance=200000000;
+        int closestParkingId=-1;
+        for(int i=0;i<parkings.size();i++){
+            int id =findNodeByCord(parkings.get(i).getSzerokosc(), parkings.get(i).getDlugosc());
+            id=findNodeById(id);
+            if(nodes.get(id).getDroga()<minDistance ){
+                minDistance=nodes.get(id).getDroga();
+                closestParkingId=id;
+            }
+        }
+        if(closestParkingId!=-1){
+            path= dijkstra.show_droga(nodes, cords, ways, closestParkingId);
+        }else{
+            path=null;
+        }
+
     }
 
     public void readMap() throws IOException {

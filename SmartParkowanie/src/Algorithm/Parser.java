@@ -199,9 +199,9 @@ public class Parser {
                 temp_droga = Integer.toString(prev_node.minus(next_node)) + ",";
                 prev_node = next_node;
 
-                temp_String += "(" + way.sciezka.get(i).toString() + ",";
+                temp_String +=  way.sciezka.get(i).toString() + ",";
                 temp_String += temp_droga;
-                temp_String += way.sciezka.get(i + 1).toString() + ")\n";
+                temp_String += way.sciezka.get(i + 1).toString() + "\n";
             }
         } else {
             CordNode prev_node = findCordNodeById(way.sciezka.get(0));
@@ -275,7 +275,6 @@ public class Parser {
         while (line != null) {
 
             int id1, id2, dl;
-            int i = 1;
 
             String[] split = line.split(",");
             if (split.length != 3) {
@@ -319,7 +318,7 @@ public class Parser {
     }
 
     void sortDistancesInFile() throws FileNotFoundException, IOException {
-        BufferedReader br = new BufferedReader(new FileReader("mapa_nowa.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("distances.txt"));
         String line = br.readLine();
         LinkedList<ToSort> listToSort = new LinkedList<>();
 
@@ -332,7 +331,7 @@ public class Parser {
         }
         br.close();
         Collections.sort(listToSort, new ComparatorFile());
-        PrintWriter writer = new PrintWriter("mapa_nowa.txt", "UTF-8");
+        PrintWriter writer = new PrintWriter("distances.txt", "UTF-8");
 
         while (listToSort.size() != 0) {
             writer.println(listToSort.getFirst().getLinijka());

@@ -44,7 +44,7 @@ public class CordNode {
         this.id = id;
     }
 
-    CordNode(int a, double x, double y) {
+    public CordNode(int a, double x, double y) {
         id = a;
         dlugosc = y;
         szerokosc = x;
