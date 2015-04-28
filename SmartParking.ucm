@@ -16,11 +16,15 @@
       </Actor>
       <Actor UniqueID="142e0cc4-5f04-4cf0-8d98-fa4d60c9c5be" Name="Administrator" ID="2" Prefix="A">
         <Attributes>
-          <Description />
+          <Description>Administrator jest osobą zarządzającą całością systemu. Może wprowadzać on zmiany z poziomu okna administratora oraz monitorować sytuację.</Description>
           <Notes />
           <RelatedDocuments />
         </Attributes>
-        <Goals />
+        <Goals>
+          <Goal UniqueID="aacc4303-6754-402d-a0e0-02970cd5f539" Name="1" ID="1" Prefix="">
+            <Description>Umiejętne i łatwe zarządzanie parkingiem</Description>
+          </Goal>
+        </Goals>
       </Actor>
       <Actor UniqueID="e8d9b2db-9c6a-499b-ad89-1d97b95b5bad" Name="System płatności" ID="3" Prefix="A">
         <Attributes>
@@ -33,43 +37,235 @@
     </Actors>
     <Packages />
     <UseCases>
-      <UseCase UniqueID="7f650aff-a830-4394-a781-5b60e26ab966" Name="Identyfikacja użytkownika" ID="1" Prefix="UC">
+      <UseCase UniqueID="4b542e68-423a-4bc9-9de6-6d58de1af23b" Name="Wprowadź zmiany systemowe" ID="1" Prefix="UC">
         <Attributes>
           <Description />
           <Notes />
           <RelatedDocuments />
         </Attributes>
         <Steps>
-          <Step UniqueID="fba8337c-0086-45d1-ab84-81719f2e2afc" Name="1" ID="1" Prefix="">
-            <Description>Wysłanie z systemu do urządzenia mobilnego prośby o dane identyfikacyjne</Description>
+          <Step UniqueID="29c5214f-dec2-491d-b0f5-5b982d1b5855" Name="1" ID="1" Prefix="">
+            <Description>Administrator włącza okno administratora</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
-          <Step UniqueID="1f401ff5-07ac-4e3a-b5eb-11d33dfe9768" Name="2" ID="2" Prefix="">
-            <Description>Wysłanie danych identyfikacyjnych do systemu</Description>
+          <Step UniqueID="129b4cbc-5275-4a1f-968f-667c7143b102" Name="2" ID="2" Prefix="">
+            <Description>Zmiana dostępnych parametrów systemu</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
-          <Step UniqueID="926651f8-67cc-4ab2-8d77-536ea0c429cb" Name="3" ID="3" Prefix="">
-            <Description>Odebranie i przetworzenie danych z urządzenia mobilnego</Description>
+          <Step UniqueID="c73d898a-f733-46fe-9bd5-ec9561db735d" Name="3" ID="3" Prefix="">
+            <Description>Zatwierdzenie zmiany parametrów</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
-          <Step UniqueID="5f01f546-5a25-4110-a864-ade87b735e92" Name="4" ID="4" Prefix="">
-            <Description>Pobranie danych osobowych z bazy danych </Description>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>142e0cc4-5f04-4cf0-8d98-fa4d60c9c5be</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions />
+        <Postconditions />
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description />
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="2c7b7aa6-4cb6-4136-b1e3-b76bea8cf8d3" Name="Wyznacz trasę auta" ID="2" Prefix="UC">
+        <Attributes>
+          <Description>Przypadek użycia opisuje scenariusze, związane z wyznaczeniem drogi dla auta klienta, prowadzącej do parkingu.</Description>
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="f836573f-afd5-4f64-a469-0e334b093afa" Name="1" ID="1" Prefix="">
+            <Description>Identyfikacja użytkownika za pomocą smartfona</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
-          <Step UniqueID="888018ae-23a9-425d-b7c3-d707ea7ddaae" Name="4.A" ID="4" Prefix="A">
-            <Description>Dane są nie poprawne</Description>
+          <Step UniqueID="1732c9d1-f37b-4dd4-be66-746d22f74ec1" Name="1.1" ID="1" Prefix="">
+            <Description>Odebranie i przetworzenie danych z urządzenia mobilnego (przez system)</Description>
+            <ChildID>1</ChildID>
+            <Type>Child</Type>
+          </Step>
+          <Step UniqueID="91beacd6-bb18-4899-a404-e6a32f9f7644" Name="1.2" ID="1" Prefix="">
+            <Description>Zapis nowych danych w bazie - daty i godziny wjazdu na teren, </Description>
+            <ChildID>2</ChildID>
+            <Type>Child</Type>
+          </Step>
+          <Step UniqueID="cf6569d0-352a-4ce2-a9ab-e86a16874f3b" Name="1.A" ID="1" Prefix="A">
+            <Description>Utworzenie nowego użytkownika systemu za pomocą danych smartfona</Description>
             <ChildID>-1</ChildID>
             <Type>Alternative</Type>
+          </Step>
+          <Step UniqueID="8b74fdba-2f82-46b6-893d-56caec93c6b3" Name="1.A.1" ID="1" Prefix="A">
+            <Description>Wysłanie zapytania na urządzenie mobilne w celu potwierdzenia, że użytkownik chce zacząć korzystać z systemu</Description>
+            <ChildID>1</ChildID>
+            <Type>AlternativeChild</Type>
+          </Step>
+          <Step UniqueID="134b29d4-a4c7-47a8-b39e-6700ce053e8e" Name="1.A.2" ID="1" Prefix="A">
+            <Description>Utworzenie nowego klienta w bazie</Description>
+            <ChildID>2</ChildID>
+            <Type>AlternativeChild</Type>
+          </Step>
+          <Step UniqueID="5312acd6-9f86-4214-a4e9-094b721d062d" Name="1.A.3" ID="1" Prefix="A">
+            <Description>Wysłanie zapytania na urządzenie mobilne o dane osobowe użytkownika</Description>
+            <ChildID>3</ChildID>
+            <Type>AlternativeChild</Type>
+          </Step>
+          <Step UniqueID="0e031606-88f3-47c1-9fa4-07e2c74a4c4e" Name="1.A.4" ID="1" Prefix="A">
+            <Description>Zapis danych osobowych w bazie oraz rozpoczęcie monitorowania klienta (zapis pierwszej daty i godziny wjazdu)</Description>
+            <ChildID>4</ChildID>
+            <Type>AlternativeChild</Type>
+          </Step>
+          <Step UniqueID="13e63656-9e88-4ae4-a293-4d9d90d92d99" Name="2" ID="2" Prefix="">
+            <Description>Przetworzenie danych użytkownika oraz danych dodatkowych? tu trzeba ustalić</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="150b4763-a8dc-4412-b595-b71d230aaf63" Name="3" ID="3" Prefix="">
+            <Description>Podjęcie decyzji o parkingu docelowym dla klienta? tu trzeba ustalić</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="e2a91f55-d5a2-4978-ba09-b0b8d2bd4489" Name="4" ID="4" Prefix="">
+            <Description>Poinformowanie klienta o trasie dojazdu do parkingu docelowego</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="44c520c5-918d-4ae5-9431-810cb6f4343f" Name="4.1" ID="4" Prefix="">
+            <Description>Wysłanie informacji graficznej (mapki) na smartfona z zaznaczonym parkingiem wraz z podpowiedziami</Description>
+            <ChildID>1</ChildID>
+            <Type>Child</Type>
+          </Step>
+          <Step UniqueID="56543d2e-d4f5-46dd-84d5-7b958031d78d" Name="4.2" ID="4" Prefix="">
+            <Description>Dodanie nowych podpowiedzi na ekrany, które będzie mijał kierowca</Description>
+            <ChildID>2</ChildID>
+            <Type>Child</Type>
           </Step>
         </Steps>
         <OpenIssues />
         <ActiveActors>
           <ActiveActor>
             <ActorUniqueID>b106517a-23c0-4a22-b5da-97db7a67ab75</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>System działa, w obszarze działania systemu pojawił się sygnał od urządzenia klienta</Preconditions>
+        <Postconditions />
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>System nawiązał łączność z urządzeniem mobilnym klienta</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="9ee13a76-578e-445f-ac10-de2e10f59495" Name="Obsłuż płatności" ID="3" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="9c91748f-4209-447e-b0d1-e6a7b5072246" Name="1" ID="1" Prefix="">
+            <Description>Identyfikacja klienta na miejscu parkingowym</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="76ee1fba-7f35-4660-ae73-a7d86e810019" Name="2" ID="2" Prefix="">
+            <Description>Klient wybiera parametry płatności</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="4223500f-40fc-4ef0-865f-45e98f27f9c0" Name="3" ID="3" Prefix="">
+            <Description>System płatności realizuje przelew</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="92e4b720-7b22-4281-8f5b-b799248ffe51" Name="4" ID="4" Prefix="">
+            <Description>Klient otrzymuje odpowiedź systemu</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>b106517a-23c0-4a22-b5da-97db7a67ab75</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+          <ActiveActor>
+            <ActorUniqueID>e8d9b2db-9c6a-499b-ad89-1d97b95b5bad</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions />
+        <Postconditions />
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description />
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="3eed9371-48fb-468c-bdea-8e118d3f2d81" Name="Aktualizuj stan systemu" ID="4" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="96b7ade6-5609-41a3-a773-bbe9f8e0ca55" Name="1" ID="1" Prefix="">
+            <Description>System przyjmuje nowe informacje z całego parkingu</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="099e74dd-77d5-4f01-a6a0-6d6958e3d411" Name="2" ID="2" Prefix="">
+            <Description>Przetwarzanie i zapamiętywanie danych</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="c3bfe4b1-b2fd-4d7c-94f3-2a666e247c31" Name="3" ID="3" Prefix="">
+            <Description>Aktualizacja danych na oknie aministratora</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="9d54311a-fb3e-438d-a594-9144ad657b42" Name="4" ID="4" Prefix="">
+            <Description>Aktualizacja danych u pozostałych użytkowników oraz na ekranach</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>142e0cc4-5f04-4cf0-8d98-fa4d60c9c5be</ActorUniqueID>
             <IsPrimary>false</IsPrimary>
           </ActiveActor>
         </ActiveActors>
