@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UCM-Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0">
+  <Model UniqueID="a1bffb58-ffe8-4a36-918c-6e8d5c02a756" Name="SmartParking" ID="1" Prefix="M" Author="Grzegorz Bylina, Mateusz Maj, Tomasz Gajda" Company="" Release="" CreationDateValue="04/28/2015 20:50:20">
+    <Actors>
+      <Actor UniqueID="b106517a-23c0-4a22-b5da-97db7a67ab75" Name="Użytkownik" ID="1" Prefix="A">
+        <Attributes>
+          <Description>Klient, wjeżdzający na teren objęty systemem inteligentnego parkingu</Description>
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals>
+          <Goal UniqueID="c2cfb1ab-841e-443b-93e6-8ab0c72d7380" Name="1" ID="1" Prefix="">
+            <Description>Korzystne zaparkowanie pojazdu</Description>
+          </Goal>
+        </Goals>
+      </Actor>
+      <Actor UniqueID="142e0cc4-5f04-4cf0-8d98-fa4d60c9c5be" Name="Administrator" ID="2" Prefix="A">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals />
+      </Actor>
+      <Actor UniqueID="e8d9b2db-9c6a-499b-ad89-1d97b95b5bad" Name="System płatności" ID="3" Prefix="A">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals />
+      </Actor>
+    </Actors>
+    <Packages />
+    <UseCases>
+      <UseCase UniqueID="7f650aff-a830-4394-a781-5b60e26ab966" Name="Identyfikacja użytkownika" ID="1" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="fba8337c-0086-45d1-ab84-81719f2e2afc" Name="1" ID="1" Prefix="">
+            <Description>Wysłanie z systemu do urządzenia mobilnego prośby o dane identyfikacyjne</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="1f401ff5-07ac-4e3a-b5eb-11d33dfe9768" Name="2" ID="2" Prefix="">
+            <Description>Wysłanie danych identyfikacyjnych do systemu</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="926651f8-67cc-4ab2-8d77-536ea0c429cb" Name="3" ID="3" Prefix="">
+            <Description>Odebranie i przetworzenie danych z urządzenia mobilnego</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="5f01f546-5a25-4110-a864-ade87b735e92" Name="4" ID="4" Prefix="">
+            <Description>Pobranie danych osobowych z bazy danych </Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="888018ae-23a9-425d-b7c3-d707ea7ddaae" Name="4.A" ID="4" Prefix="A">
+            <Description>Dane są nie poprawne</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>b106517a-23c0-4a22-b5da-97db7a67ab75</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions />
+        <Postconditions />
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description />
+        </Trigger>
+      </UseCase>
+    </UseCases>
+    <Requirements />
+    <Attributes>
+      <Description />
+      <Notes />
+      <RelatedDocuments />
+    </Attributes>
+    <Glossary />
+    <Stakeholders />
+  </Model>
+</UCM-Document>
