@@ -4,7 +4,7 @@
     <Actors>
       <Actor UniqueID="b106517a-23c0-4a22-b5da-97db7a67ab75" Name="Użytkownik" ID="1" Prefix="A">
         <Attributes>
-          <Description>Klient, wjeżdzający na teren objęty systemem inteligentnego parkingu</Description>
+          <Description>Klient, wjeżdzający na teren objęty systemem inteligentnego parkingu. System ma na podstawie jego przeszłości oraz innych czynników wspomagających wyznaczyć miejsce dla jego auta.</Description>
           <Notes />
           <RelatedDocuments />
         </Attributes>
@@ -12,11 +12,14 @@
           <Goal UniqueID="c2cfb1ab-841e-443b-93e6-8ab0c72d7380" Name="1" ID="1" Prefix="">
             <Description>Korzystne zaparkowanie pojazdu</Description>
           </Goal>
+          <Goal UniqueID="f7c3e7ea-ce72-42bd-9011-26766d2ee92e" Name="2" ID="2" Prefix="">
+            <Description>Szybkie zaparkowanie pojazdu</Description>
+          </Goal>
         </Goals>
       </Actor>
       <Actor UniqueID="142e0cc4-5f04-4cf0-8d98-fa4d60c9c5be" Name="Administrator" ID="2" Prefix="A">
         <Attributes>
-          <Description>Administrator jest osobą zarządzającą całością systemu. Może wprowadzać on zmiany z poziomu okna administratora oraz monitorować sytuację.</Description>
+          <Description>Administrator jest osobą zarządzającą całością systemu. Może wprowadzać on zmiany z poziomu okna administratora oraz monitorować sytuację. Nie musi być dostępny przez cały czas działania systemu.</Description>
           <Notes />
           <RelatedDocuments />
         </Attributes>
@@ -24,22 +27,17 @@
           <Goal UniqueID="aacc4303-6754-402d-a0e0-02970cd5f539" Name="1" ID="1" Prefix="">
             <Description>Umiejętne i łatwe zarządzanie parkingiem</Description>
           </Goal>
+          <Goal UniqueID="d852232f-cc9d-4c8f-9628-16748943f7bb" Name="2" ID="2" Prefix="">
+            <Description>Tanie zarządzanie parkingiem</Description>
+          </Goal>
         </Goals>
-      </Actor>
-      <Actor UniqueID="e8d9b2db-9c6a-499b-ad89-1d97b95b5bad" Name="System płatności" ID="3" Prefix="A">
-        <Attributes>
-          <Description />
-          <Notes />
-          <RelatedDocuments />
-        </Attributes>
-        <Goals />
       </Actor>
     </Actors>
     <Packages />
     <UseCases>
       <UseCase UniqueID="4b542e68-423a-4bc9-9de6-6d58de1af23b" Name="Wprowadź zmiany systemowe" ID="1" Prefix="UC">
         <Attributes>
-          <Description />
+          <Description>Przypadek użycia opisuje wprowadzanie zmian przez administratora</Description>
           <Notes />
           <RelatedDocuments />
         </Attributes>
@@ -69,7 +67,7 @@
         </ActiveActors>
         <HistoryItems />
         <Prose />
-        <Preconditions />
+        <Preconditions>administrator zalogowany, system działa w trybie normalnym</Preconditions>
         <Postconditions />
         <Release />
         <AssignedTo />
@@ -165,7 +163,7 @@
         </ActiveActors>
         <HistoryItems />
         <Prose />
-        <Preconditions>System działa, w obszarze działania systemu pojawił się sygnał od urządzenia klienta</Preconditions>
+        <Preconditions>system działa, istnieje łączność z urządzeniem mobilnym danego klienta</Preconditions>
         <Postconditions />
         <Release />
         <AssignedTo />
@@ -179,64 +177,9 @@
           <Description>System nawiązał łączność z urządzeniem mobilnym klienta</Description>
         </Trigger>
       </UseCase>
-      <UseCase UniqueID="9ee13a76-578e-445f-ac10-de2e10f59495" Name="Obsłuż płatności" ID="3" Prefix="UC">
-        <Attributes>
-          <Description />
-          <Notes />
-          <RelatedDocuments />
-        </Attributes>
-        <Steps>
-          <Step UniqueID="9c91748f-4209-447e-b0d1-e6a7b5072246" Name="1" ID="1" Prefix="">
-            <Description>Identyfikacja klienta na miejscu parkingowym</Description>
-            <ChildID>-1</ChildID>
-            <Type>Default</Type>
-          </Step>
-          <Step UniqueID="76ee1fba-7f35-4660-ae73-a7d86e810019" Name="2" ID="2" Prefix="">
-            <Description>Klient wybiera parametry płatności</Description>
-            <ChildID>-1</ChildID>
-            <Type>Default</Type>
-          </Step>
-          <Step UniqueID="4223500f-40fc-4ef0-865f-45e98f27f9c0" Name="3" ID="3" Prefix="">
-            <Description>System płatności realizuje przelew</Description>
-            <ChildID>-1</ChildID>
-            <Type>Default</Type>
-          </Step>
-          <Step UniqueID="92e4b720-7b22-4281-8f5b-b799248ffe51" Name="4" ID="4" Prefix="">
-            <Description>Klient otrzymuje odpowiedź systemu</Description>
-            <ChildID>-1</ChildID>
-            <Type>Default</Type>
-          </Step>
-        </Steps>
-        <OpenIssues />
-        <ActiveActors>
-          <ActiveActor>
-            <ActorUniqueID>b106517a-23c0-4a22-b5da-97db7a67ab75</ActorUniqueID>
-            <IsPrimary>false</IsPrimary>
-          </ActiveActor>
-          <ActiveActor>
-            <ActorUniqueID>e8d9b2db-9c6a-499b-ad89-1d97b95b5bad</ActorUniqueID>
-            <IsPrimary>false</IsPrimary>
-          </ActiveActor>
-        </ActiveActors>
-        <HistoryItems />
-        <Prose />
-        <Preconditions />
-        <Postconditions />
-        <Release />
-        <AssignedTo />
-        <Priority>1</Priority>
-        <Complexity>Low</Complexity>
-        <Implementation>Scheduled</Implementation>
-        <Level>Summary</Level>
-        <Status>Named</Status>
-        <Trigger>
-          <EventType>External</EventType>
-          <Description />
-        </Trigger>
-      </UseCase>
       <UseCase UniqueID="3eed9371-48fb-468c-bdea-8e118d3f2d81" Name="Aktualizuj stan systemu" ID="4" Prefix="UC">
         <Attributes>
-          <Description />
+          <Description>Przypadek użycia opisuje sytuacje, w których system otrzymuje nowe dane pochodzące z czujników lub urządzeń klienckich. Następuje wtedy aktualizacja danych w systemie.</Description>
           <Notes />
           <RelatedDocuments />
         </Attributes>
@@ -257,7 +200,7 @@
             <Type>Alternative</Type>
           </Step>
           <Step UniqueID="c3bfe4b1-b2fd-4d7c-94f3-2a666e247c31" Name="3" ID="3" Prefix="">
-            <Description>Aktualizacja danych na oknie aministratora (pozycje użytkowników, stan parkingu). Jeśli zmienia się pozycja użytkownika i jest on poza parkingiem następuje wyznaczanie trasy dla jego samochodu.</Description>
+            <Description>Aktualizacja danych na oknie administratora (pozycje użytkowników, stan parkingu). Jeśli zmienia się pozycja użytkownika i jest on poza parkingiem następuje wyznaczanie trasy dla jego samochodu.</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
@@ -281,7 +224,7 @@
         </ActiveActors>
         <HistoryItems />
         <Prose />
-        <Preconditions />
+        <Preconditions>system włączony, istnieją nowe nieprzetworzone informacje</Preconditions>
         <Postconditions />
         <Release />
         <AssignedTo />
@@ -292,7 +235,7 @@
         <Status>Named</Status>
         <Trigger>
           <EventType>External</EventType>
-          <Description />
+          <Description>Pojawienie się nowych danych, pochodzących z czujników lub urządzenia klienckiego.</Description>
         </Trigger>
       </UseCase>
     </UseCases>
