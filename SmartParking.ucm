@@ -242,24 +242,34 @@
         </Attributes>
         <Steps>
           <Step UniqueID="96b7ade6-5609-41a3-a773-bbe9f8e0ca55" Name="1" ID="1" Prefix="">
-            <Description>System przyjmuje nowe informacje z całego parkingu</Description>
+            <Description>System przyjmuje nowe informacje wysłane z czujników bądź urządzenia klienta</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
           <Step UniqueID="099e74dd-77d5-4f01-a6a0-6d6958e3d411" Name="2" ID="2" Prefix="">
-            <Description>Przetwarzanie i zapamiętywanie danych</Description>
+            <Description>Przetwarzanie i aktualizacja danych w bazie o stanie parkingu</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
+          <Step UniqueID="1921cfab-fc9b-4c91-ba46-37f87af65111" Name="2.A" ID="2" Prefix="A">
+            <Description>Przetwarzanie i aktualizacja danych w bazie o pozycji użytkownika</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
           <Step UniqueID="c3bfe4b1-b2fd-4d7c-94f3-2a666e247c31" Name="3" ID="3" Prefix="">
-            <Description>Aktualizacja danych na oknie aministratora</Description>
+            <Description>Aktualizacja danych na oknie aministratora (pozycje użytkowników, stan parkingu). Jeśli zmienia się pozycja użytkownika i jest on poza parkingiem następuje wyznaczanie trasy dla jego samochodu.</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
           </Step>
           <Step UniqueID="9d54311a-fb3e-438d-a594-9144ad657b42" Name="4" ID="4" Prefix="">
-            <Description>Aktualizacja danych u pozostałych użytkowników oraz na ekranach</Description>
+            <Description>Aktualizacja danych u pozostałych użytkowników oraz na ekranach odnośnie stanu parkingu</Description>
             <ChildID>-1</ChildID>
             <Type>Default</Type>
+          </Step>
+          <Step UniqueID="dc12d99f-5819-4102-995b-b83a811113dd" Name="4.A" ID="4" Prefix="A">
+            <Description> "Wyznacz trasę auta"</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
           </Step>
         </Steps>
         <OpenIssues />
@@ -292,7 +302,27 @@
       <Notes />
       <RelatedDocuments />
     </Attributes>
-    <Glossary />
-    <Stakeholders />
+    <Glossary>
+      <GlossaryItem UniqueID="6bc53d22-6dcc-44b7-b678-623ec56a1a74" Name="Dane osobowe" ID="2" Prefix="G">
+        <Description>Dane użytkownika systemu: jego identyfikator, imię, nazwisko, adres, samochody</Description>
+      </GlossaryItem>
+      <GlossaryItem UniqueID="603ad6f1-de5d-43df-9924-cdf4d2161552" Name="Klient" ID="1" Prefix="G">
+        <Description>Osoba używająca systemu parkingowego, posiadająca odpowiednie oprogramowanie zainstalowane na urządzeniu mobilnym. Oprogramowanie umożliwa mu komunikacje z systemem. </Description>
+      </GlossaryItem>
+      <GlossaryItem UniqueID="be9dcfc1-0695-4fe2-88f1-5679333589d5" Name="Parametry systemu" ID="3" Prefix="G">
+        <Description>Cechy systemu, które mogą ulec zmianie. Zmian dokonuje administrator. Są to np ilość dostepnych miejsc na parkingach, strategia rozdawania miejsc parkingowych, ręczna aktualizacja wiedzy na temat warunków pogodowych, zatłoczenia ulic itp.</Description>
+      </GlossaryItem>
+    </Glossary>
+    <Stakeholders>
+      <Stakeholder UniqueID="42d77ba9-8594-4115-9025-327cc60c64c7" Name="Obywatele" ID="2" Prefix="S">
+        <Description />
+      </Stakeholder>
+      <Stakeholder UniqueID="9ff2a6db-ae87-4a6a-a4db-feb2188c2520" Name="Urząd Miasta" ID="1" Prefix="S">
+        <Description />
+      </Stakeholder>
+      <Stakeholder UniqueID="d712a359-0f59-497f-861d-89ef45d32cca" Name="Właściciele parkingów" ID="3" Prefix="S">
+        <Description />
+      </Stakeholder>
+    </Stakeholders>
   </Model>
 </UCM-Document>
