@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UCM-Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.0">
+  <Model UniqueID="186ca5a0-2457-4438-bcae-5b4988be633f" Name="New model" ID="1" Prefix="M" Author="" Company="" Release="" CreationDateValue="06/22/2015 18:27:01">
+    <Actors>
+      <Actor UniqueID="412ab23a-5f95-45c4-9372-4a5df2094972" Name="Administrator parkingu" ID="1" Prefix="A">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals />
+      </Actor>
+      <Actor UniqueID="34b267c9-19cd-4878-a0d3-c4576659f4dd" Name="Główny administrator" ID="3" Prefix="A">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals />
+      </Actor>
+      <Actor UniqueID="a50cfda2-85db-4056-971b-79d9315c8168" Name="Czujnik zaparkowania" ID="5" Prefix="A">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals />
+      </Actor>
+      <Actor UniqueID="4dad9a8f-f3ec-4767-a8be-6aaa4e874768" Name="Czujnik ruchu drogowego" ID="6" Prefix="A">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals />
+      </Actor>
+      <Actor UniqueID="2f45e617-a4ee-4ef8-b365-a4cda314e4db" Name="Użytkownik" ID="7" Prefix="A">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Goals />
+      </Actor>
+    </Actors>
+    <Packages />
+    <UseCases>
+      <UseCase UniqueID="40d7d217-1226-488f-a473-ab799ee09336" Name="Podgląd dostępnych parkingów" ID="1" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="e1b3f448-c269-4d94-b40e-7ffbcf1acb51" Name="1" ID="1" Prefix="">
+            <Description>Automatycznie wysyłanie aktualnej pozycji użytkownika</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="4eacefd4-ba41-4ae2-b92a-e9a754451157" Name="2" ID="2" Prefix="">
+            <Description>Użytkownik dostaje informacje o dostępnych parkingach
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="4b7de07d-2743-4189-96a1-421b6481a5bc" Name="3" ID="3" Prefix="">
+            <Description>Użytkownik parkuje w wyznaconym miejscu
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="1ac7eef5-03b6-49f3-bd28-ca5c495aa2a6" Name="3.A" ID="3" Prefix="A">
+            <Description>Użytkownik parkuje w innym miejscu niż wyznaczone</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+          <Step UniqueID="a71d2c54-eaae-4dca-8b55-313782fe12f0" Name="4" ID="4" Prefix="">
+            <Description>Aktualizacja kontekstu
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>2f45e617-a4ee-4ef8-b365-a4cda314e4db</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Użytkownik ma włączoną aplikacje mobilną</Preconditions>
+        <Postconditions>Użytkownik zaparkował, aktualizacja kontekstu</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>Internal</EventType>
+          <Description>Użytkownik rusza pojazdem</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="0518a4c4-c253-4e3f-b65d-a4dd50041159" Name="Rezerwacja miejsca" ID="2" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="cfb07fd7-d75e-4cb7-a384-45ab3f31d370" Name="1" ID="1" Prefix="">
+            <Description>Użytkownik wybiera miejsce parkingowe</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="3e1a6d8a-df6d-4aae-8c1e-09890e9a5f73" Name="2" ID="2" Prefix="">
+            <Description>Użytkownik wybiera pore rezerwacji
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="73d34ef9-9f4f-4738-af03-bed9842004e6" Name="3" ID="3" Prefix="">
+            <Description>Użytkownik rezerwuje miesjce (płaci)</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="d474e991-08d1-4d77-b8b2-a57aab189b6d" Name="3.A" ID="3" Prefix="A">
+            <Description>Brak środków na koncie powrót do kroku 1</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+          <Step UniqueID="5932859f-3c88-440b-9107-ceddb9964ad5" Name="4" ID="4" Prefix="">
+            <Description>System potwierdza rezerwacje miejsca</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="b841a996-1735-4b4f-b74b-90485af3f7ac" Name="4.A" ID="4" Prefix="A">
+            <Description>System wyświetla komunikat o braku potwierdzenia rezerwacji</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>2f45e617-a4ee-4ef8-b365-a4cda314e4db</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Użytkownik ma włączoną aplikacje</Preconditions>
+        <Postconditions>Użytkownik posiada rezerwacje na miejsce.</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>Naciśnięcie przycisku rezerwuj.</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="294c9f2f-a8b1-4a15-a54a-c7c3c9089e05" Name="Aktualizacja stanu parkingu" ID="4" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="7e682909-6c76-4c8d-a9ab-203836369098" Name="1" ID="1" Prefix="">
+            <Description>Wysłanie Statusu miejsca parkingowego</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="8b638c6e-257e-430b-a927-6834d80a95d4" Name="1.A" ID="1" Prefix="A">
+            <Description>Błędna aktualizacja</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+          <Step UniqueID="7f606612-be21-405a-a35c-5757742b3e3a" Name="1.B" ID="1" Prefix="B">
+            <Description>Ręczna aktualizacja przez administratora parkingu
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+          <Step UniqueID="89796d32-9efb-49ee-8f18-acbad2341ab5" Name="2" ID="2" Prefix="">
+            <Description>Komunikat o poprawnej aktualizacji
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>a50cfda2-85db-4056-971b-79d9315c8168</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+          <ActiveActor>
+            <ActorUniqueID>412ab23a-5f95-45c4-9372-4a5df2094972</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Poprawnie działający czujnik na miejscu parkingowym</Preconditions>
+        <Postconditions>Zaktualizowany stan parkingu</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>Zaparkowanie auta, wyjazd auta z parkingu</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="ac9eb46e-33a8-4bff-b7d2-e6923f695a22" Name="Aktualizacja stanu ruchu" ID="5" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="1edacf01-4a53-4e57-a554-cce424a793d4" Name="1" ID="1" Prefix="">
+            <Description>Pomiar paramatrów ruchu</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="922c30ee-a0f3-4292-bd19-c73484fc15dc" Name="2" ID="2" Prefix="">
+            <Description>Przesłanie informacji do serwera</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="6913053a-bad3-4376-a193-0b22a25bd2c7" Name="2.A" ID="2" Prefix="A">
+            <Description>Błąd przesłania danych</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+          <Step UniqueID="919ccae4-ed14-4368-a623-33d5bda9ce54" Name="2.B" ID="2" Prefix="B">
+            <Description>Gromadzanie danych</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>4dad9a8f-f3ec-4767-a8be-6aaa4e874768</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Działający czujnik ruchu</Preconditions>
+        <Postconditions>Zaktualizowany stan ruchu w systemie</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>Temporal</EventType>
+          <Description>Cyklicznie</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="a3506756-cd76-4b5a-a1ea-70a7fa701162" Name="Zmiana paramatrów systemu" ID="6" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="20c889af-cb55-457f-8ce9-426536bfbcc2" Name="1" ID="1" Prefix="">
+            <Description>Logowanie do systemu
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="43927535-6d63-480c-abc4-31e58d286d6c" Name="2" ID="2" Prefix="">
+            <Description>Wybranie obszaru aktualizacji </Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="0682e95d-52b6-4b1f-ad35-641acf9753bd" Name="3" ID="3" Prefix="">
+            <Description>Wyświetlenie parametrów do zmiany</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="6424f40a-7a18-4870-929d-9a1bae5147c7" Name="4" ID="4" Prefix="">
+            <Description>Administrator wprowadza zmienione parametry.</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="6d3cc3fb-9a5d-4d6d-9114-3f1e04a0813f" Name="5" ID="5" Prefix="">
+            <Description>System oblicza zmienione trasy dla użytkowników.</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>34b267c9-19cd-4878-a0d3-c4576659f4dd</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Potrzeba zmiany obciążenia parkingów</Preconditions>
+        <Postconditions>Zmienione trasy i sugestie dla użytkowników</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>Nagłe wydarzenie drogowe,</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="d91f4a37-a0a7-49c6-a0d7-6ea4ece069d6" Name="Generowanie statystyk" ID="7" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="088c2bb9-daa8-4840-b161-800b30fe94de" Name="1" ID="1" Prefix="">
+            <Description>Logowanie do systemu
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="d45b3baa-1570-414b-a94c-93e32a8b97fa" Name="2" ID="2" Prefix="">
+            <Description>Wybór atrybutów do raportu</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="19f824e0-b56a-4dc3-804d-f2ed2e37451a" Name="3" ID="3" Prefix="">
+            <Description>Pobranie danych</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="fccf6b89-3613-41de-957b-8081f66146e5" Name="4" ID="4" Prefix="">
+            <Description>Obliczenie i wyświetlenie raporu</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>34b267c9-19cd-4878-a0d3-c4576659f4dd</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Dostępne dane</Preconditions>
+        <Postconditions>Wygenerowany raport</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>Administrator wywołuje akcje generowania raportu</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="c0ca1680-f7f0-4b82-9cc9-f59e4cbf9974" Name="Instalacja czujnika (parking)" ID="8" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="965c7a07-5e08-46fc-b5bd-21ba1586156d" Name="1" ID="1" Prefix="">
+            <Description>Administrator włącza czujnik</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="7225fb24-e5ed-48a7-9f30-3361aeda7947" Name="2" ID="2" Prefix="">
+            <Description>Administrator konfiguruje czujnik
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="53872c17-c907-4ed6-bf5c-333ab42dfcec" Name="3" ID="3" Prefix="">
+            <Description>Administrator rejestruje czujnik w systemie</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="b3bf532c-2faa-42dd-967f-bb23d3eb61be" Name="4" ID="4" Prefix="">
+            <Description>Czujnik wysyła sygnał pingujacy system</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="0b3fe026-8265-4d45-86cd-4112b2d10a64" Name="5" ID="5" Prefix="">
+            <Description>System odpowiada czujnikowi potwierdzająć konfiguracje
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="433132c6-72b8-4d8a-9099-3ed0b86d8216" Name="5.A" ID="5" Prefix="A">
+            <Description>System nie odpowiada powrót do kroku 1</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>412ab23a-5f95-45c4-9372-4a5df2094972</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+          <ActiveActor>
+            <ActorUniqueID>a50cfda2-85db-4056-971b-79d9315c8168</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Czujnik zamontowany</Preconditions>
+        <Postconditions>Działający nowy czujnik </Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>aktywacja czujnika</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="19fda81e-958d-4717-a2fe-f4af8526d366" Name="Usunięcie czujnika (parking)" ID="9" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="86d3627d-7194-4242-8b79-71457aa8f9f4" Name="1" ID="1" Prefix="">
+            <Description>Logowanie do systemu
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="cd5c67c6-2fae-4cc9-8bfb-d8ba336e8927" Name="2" ID="2" Prefix="">
+            <Description>Administrator wybiera czujnik w systemie i go klika deaktwuj
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="65376720-85ae-4cb7-b647-3349bab9aaee" Name="3" ID="3" Prefix="">
+            <Description>Wyłączenie ręczne czujnika</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>a50cfda2-85db-4056-971b-79d9315c8168</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+          <ActiveActor>
+            <ActorUniqueID>412ab23a-5f95-45c4-9372-4a5df2094972</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Czujnik przeznaczony do usunięcia</Preconditions>
+        <Postconditions>Wyrejsetrowany czujnik z systemu</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>Administrator używa funkcji deaktywacji w systemie</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="17ec1809-c13f-4c9d-8918-b66d9b7cd98a" Name="Instalacja czujnika (stan dróg)" ID="10" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="10374e9b-2599-4c97-a9b4-a05cdc73473f" Name="1" ID="1" Prefix="">
+            <Description>Administrator włącza czujnik
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="fd5060e4-af6b-4694-97b1-36f805bbf3b9" Name="2" ID="2" Prefix="">
+            <Description>Administrator konfiguruje czujnik
+
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="5a089b7c-b9f5-4a2b-98c4-dc6a8cd80fa7" Name="3" ID="3" Prefix="">
+            <Description>Administrator rejestruje czujnik w systemie
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="f54b8dd1-a174-431c-af3a-c55ddb3476e2" Name="4" ID="4" Prefix="">
+            <Description>Czujnik wysyła sygnał pingujacy system</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="b77a9377-8c04-4faf-af5d-3ecca7fac884" Name="5" ID="5" Prefix="">
+            <Description>System odpowiada czujnikowi potwierdzająć konfiguracje
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="1e606d19-4a87-4ac3-b5b6-89858ab5a2b7" Name="5.A" ID="5" Prefix="A">
+            <Description>System nie odpowiada powrót do kroku 1</Description>
+            <ChildID>-1</ChildID>
+            <Type>Alternative</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>4dad9a8f-f3ec-4767-a8be-6aaa4e874768</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+          <ActiveActor>
+            <ActorUniqueID>412ab23a-5f95-45c4-9372-4a5df2094972</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Czujnik zamontowany</Preconditions>
+        <Postconditions>Działający nowy czujnik </Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>aktywacja czujnika</Description>
+        </Trigger>
+      </UseCase>
+      <UseCase UniqueID="26ee2bcf-5c5e-4c72-b7f3-95f6ea811966" Name="Usunięcie czujnika (stan dróg)" ID="11" Prefix="UC">
+        <Attributes>
+          <Description />
+          <Notes />
+          <RelatedDocuments />
+        </Attributes>
+        <Steps>
+          <Step UniqueID="3df704e1-77d1-4d9a-95fd-2829a04887d6" Name="1" ID="1" Prefix="">
+            <Description>Logowanie do systemu
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="0676c3ec-0d3d-4658-841c-229faa530543" Name="2" ID="2" Prefix="">
+            <Description>Administrator wybiera czujnik w systemie i go klika deaktwuj
+</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+          <Step UniqueID="63e5cff3-f9be-4d9b-b3c0-8c99b0a52d52" Name="3" ID="3" Prefix="">
+            <Description>Wyłączenie ręczne czujnika</Description>
+            <ChildID>-1</ChildID>
+            <Type>Default</Type>
+          </Step>
+        </Steps>
+        <OpenIssues />
+        <ActiveActors>
+          <ActiveActor>
+            <ActorUniqueID>34b267c9-19cd-4878-a0d3-c4576659f4dd</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+          <ActiveActor>
+            <ActorUniqueID>4dad9a8f-f3ec-4767-a8be-6aaa4e874768</ActorUniqueID>
+            <IsPrimary>false</IsPrimary>
+          </ActiveActor>
+        </ActiveActors>
+        <HistoryItems />
+        <Prose />
+        <Preconditions>Czujnik przeznaczony do usunięcia</Preconditions>
+        <Postconditions>Wyrejsetrowany czujnik z systemu</Postconditions>
+        <Release />
+        <AssignedTo />
+        <Priority>1</Priority>
+        <Complexity>Low</Complexity>
+        <Implementation>Scheduled</Implementation>
+        <Level>Summary</Level>
+        <Status>Named</Status>
+        <Trigger>
+          <EventType>External</EventType>
+          <Description>Administrator używa funkcji deaktywacji w systemie</Description>
+        </Trigger>
+      </UseCase>
+    </UseCases>
+    <Requirements />
+    <Attributes>
+      <Description />
+      <Notes />
+      <RelatedDocuments />
+    </Attributes>
+    <Glossary />
+    <Stakeholders />
+  </Model>
+</UCM-Document>
