@@ -1,4 +1,5 @@
-package Data;
+package Model;
+import Data.DayEvent;
 import java.util.ArrayList;
 
 
@@ -13,7 +14,16 @@ public class Vehicle {
 	private String destination;		// pozycja do kt�rej zmierza pojazd- wierzcho�ek grafu(parking).
 	boolean isParked;				// zmienna okre�laj�ca czy pojazd jest w trasie czy mo�e parkuje
 	int waitTime;					// zmienna oznaczaj�ca czas parkowania/postoju
-	
+	private String user;                //użytkownik pojazdu
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+        
 	private ArrayList<DayEvent> dayPlan;
 	int dayPlanIndex;
 
@@ -21,14 +31,14 @@ public class Vehicle {
 //	KONSTRUKTOR																																//
 //******************************************************************************************************************************************//
 	
-	public Vehicle(int identifier, String pos){
+	public Vehicle(String user, int identifier, String pos){
 		
 		id = identifier;
 		isParked = false;
 		position = pos;
 		destination = null;
 		waitTime = 0;
-		
+		this.user = user;
 		dayPlan = new ArrayList<DayEvent>();
 		dayPlanIndex = 0;
 	}

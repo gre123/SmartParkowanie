@@ -1,4 +1,5 @@
 package Data;
+import Model.Vehicle;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
@@ -90,7 +91,7 @@ public class DataGenerator {
 		Random random = new Random();
 		for(int i = 0; i < numberOfVehicles; i++){
 			
-			vehicle = new Vehicle(i,positions[random.nextInt(positions.length)]);
+			vehicle = new Vehicle("Adam Ważny",i,positions[random.nextInt(positions.length)]);
 			vehicleList.put(vehicle.getID(), vehicle);
 		}
 		

@@ -2,6 +2,8 @@ package AdministrationGui;
 
 import Algorithm.CordNode;
 import Algorithm.ParkFinder;
+import Data.DataGenerator;
+import Factory.CarMarkerFactory;
 import Model.CarMarker;
 import Model.LabeledMarker;
 import Model.LinePathMarker;
@@ -10,7 +12,6 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
-import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -21,33 +22,38 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PVector;
 
 public class AdminMap extends PApplet {
 
     UnfoldingMap map;
+    CarMarkerFactory carMarkerFactory = new CarMarkerFactory();
     Location AGHLocation;
-    Location carLocation;
     MarkerManager markerManager;
-    SimplePointMarker carMarker;
     ParkFinder parkFinder;
     ArrayList<PathMarker> path;
     ArrayList<LinePathMarker> pathLines;
     ArrayList<LabeledMarker> carparks;
     float step = 0.0004f;
     ArrayList<CordNode> parkings;
-
+    ArrayList<CarMarker> allCars = new ArrayList<>();
+    
+    //============
+    CarMarker ourCarMarker;
+    //============
+    
     @Override
     public void setup() {
         size(1250, 700);
         map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
         markerManager = map.getDefaultMarkerManager();
-        carLocation = new Location(50.0660f, 19.9190f);
         AGHLocation = new Location(50.0660f, 19.9190f);
+        allCars = carMarkerFactory.generateMarkers();
+        ourCarMarker = carMarkerFactory.generateMarker();
         MapUtils.createDefaultEventDispatcher(this, map);
-        carMarker = new CarMarker(carLocation, "Adam Mickiewicz", 111111, 1);
-        markerManager.addMarker(carMarker);
+        
+        markerManager.addMarker(ourCarMarker);
+        markerManager.addMarkers(allCars);
         parkFinder = new ParkFinder();
         parkings = new ArrayList<>();
         path = new ArrayList<>();
@@ -68,33 +74,33 @@ public class AdminMap extends PApplet {
     }
 
     public void up() {
-        carLocation.add(new PVector(step, 0, 0));
+        ourCarMarker.getLocation().add(new PVector(step, 0, 0));
         cleanPath();
-        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
+        parkFinder.findClosestParking(ourCarMarker.getLocation().getLat(), ourCarMarker.getLocation().getLon(), parkings);
         drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
 
     public void down() {
-        carLocation.add(new PVector(-step, 0, 0));
+        ourCarMarker.getLocation().add(new PVector(-step, 0, 0));
         cleanPath();
-        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
+        parkFinder.findClosestParking(ourCarMarker.getLocation().getLat(), ourCarMarker.getLocation().getLon(), parkings);
         drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
 
     public void left() {
-        carLocation.add(new PVector(0, -step, 0));
+        ourCarMarker.getLocation().add(new PVector(0, -step, 0));
         cleanPath();
-        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
+        parkFinder.findClosestParking(ourCarMarker.getLocation().getLat(), ourCarMarker.getLocation().getLon(), parkings);
         drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
 
     public void right() {
-        carLocation.add(new PVector(0, step, 0));
+        ourCarMarker.getLocation().add(new PVector(0, step, 0));
         cleanPath();
-        parkFinder.findClosestParking(carLocation.getLat(), carLocation.getLon(), parkings);
+        parkFinder.findClosestParking(ourCarMarker.getLocation().getLat(), ourCarMarker.getLocation().getLon(), parkings);
         drawPathToNearestParking(parkFinder.getPath(), parkFinder.getParkingId());
         this.repaint();
     }
