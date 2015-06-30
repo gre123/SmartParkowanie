@@ -1,6 +1,10 @@
 package Data;
 import Model.Vehicle;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.TreeMap;
+import javax.swing.JLabel;
 
 
 public class Simulator {
@@ -10,8 +14,10 @@ public class Simulator {
 //******************************************************************************************************************************************//
 	
 	private TreeMap<Integer, Vehicle> vehicles;
-	private int hour;
-	private int minute;
+        private JLabel clockLabel;
+        
+        public Calendar calendar = Calendar.getInstance();
+        private SimpleDateFormat format = new SimpleDateFormat("hh:mm");
 	
 //******************************************************************************************************************************************//
 //	KONSTRUKTOR																																//
@@ -24,9 +30,16 @@ public class Simulator {
 	 */
 	public Simulator(TreeMap<Integer, Vehicle> vehicleList){
 		vehicles = vehicleList;
-		hour = 0;
-		minute= 0;
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
 	}
+        
+        public Simulator(JLabel clockLabel)
+        {
+            calendar.set(Calendar.HOUR, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            this.clockLabel = clockLabel;
+        }
 
 	
 //******************************************************************************************************************************************//
@@ -35,7 +48,9 @@ public class Simulator {
 	
 	public void doIteration(){
 		pushTime();
-		System.out.println("Godzina: " + hour + ":" + minute);
+//		System.out.println("Godzina: " + calendar.get(Calendar.MINUTE) + ":" + minute);
+                clockLabel.setText(format.format(calendar.getTime()));
+                clockLabel.repaint();
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------
@@ -44,11 +59,13 @@ public class Simulator {
 	 * Metoda wykorzystywana przy symulacji- manipulacja wirtualnym czasem. Inkrementacja minut.
 	 */
 	private boolean incrementMinute(){
-		if(minute < 59){
-			++minute;
+                
+		if(calendar.get(Calendar.MINUTE) < 59){
+
+                        calendar.add(Calendar.MINUTE, 1);
 			return false;
 		}else{
-			minute = 0;
+			calendar.set(Calendar.MINUTE, 0);
 			return true;
 		}
 	}
@@ -59,10 +76,10 @@ public class Simulator {
 	 * Metoda wykorzystywana przy symulacji- manipulacja wirtualnym czasem. Inkrementacja godzin.
 	 */
 	private void incrementHour(){
-		if(hour < 23){
-			++hour;
+		if(calendar.get(Calendar.MINUTE) < 23){
+			calendar.add(Calendar.MINUTE, 1);
 		}else{
-			hour = 0;
+			calendar.set(Calendar.MINUTE, 0);
 		}
 	}
 	
@@ -73,7 +90,7 @@ public class Simulator {
 	 */
 	private void pushTime(){
 		if(incrementMinute()){
-			incrementHour();
+                    incrementHour();
 		}
 	}
 
@@ -86,7 +103,7 @@ public class Simulator {
 	 * @param val
 	 */
 	public void setHour(int val){
-		hour =val;
+		calendar.set(Calendar.HOUR, val);
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +113,7 @@ public class Simulator {
 	 * @param val
 	 */
 	public void setMinute(int val){
-		minute = val;
+		calendar.set(Calendar.MINUTE, val);
 	}
 	
 //******************************************************************************************************************************************//
@@ -118,7 +135,7 @@ public class Simulator {
 	 * @return
 	 */
 	public int getHour(){
-		return hour;
+		return calendar.get(Calendar.HOUR);
 	}
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------
@@ -128,18 +145,18 @@ public class Simulator {
 	 * @return
 	 */
 	public int getMinute(){
-		return minute;
+		return calendar.get(Calendar.MINUTE);
 	}
 	
 //******************************************************************************************************************************************//
 //	TESTOWANIE																																//
 //******************************************************************************************************************************************//
-	public static void main(String[] args){
-		
-		DataGenerator dataGenerator = new DataGenerator();
-		Simulator simulator = new Simulator(dataGenerator.generateVehicles(10, new String[]{"aaa","bbb","ccc"}));
-		for(int i = 0; i < 3600; i++){
-			simulator.doIteration();
-		}
-	}
+//	public static void main(String[] args){
+//		
+//		DataGenerator dataGenerator = new DataGenerator();
+//		Simulator simulator = new Simulator(dataGenerator.generateVehicles(10, new String[]{"aaa","bbb","ccc"}));
+//		for(int i = 0; i < 3600; i++){
+//			simulator.doIteration();
+//		}
+//	}
 }

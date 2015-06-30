@@ -1,55 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package AdministrationGui;
 
-import java.awt.event.KeyEvent;
+import Data.DataSimulationThread;
+import Data.Simulator;
+import java.awt.BorderLayout;
 
 
 public class AdminGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdminGUI
-     */
-
-    
    
+    AdminMap map = new AdminMap();
+    Simulator simulation;
+    Thread dataSimulationThread;
        
         
     public AdminGUI() {
         initComponents();
+        simulation = new Simulator(clockLabel);
+        dataSimulationThread = new Thread(new DataSimulationThread(simulation));
+        add(map, BorderLayout.CENTER);
+        map.init();
     }
 
         
-    private void carKeyPressed(KeyEvent evt)
-    {  
-        switch(evt.getKeyCode())
-        {
-             case KeyEvent.VK_UP:
-             {
-                 mapPanel1.up();
-                 break;
-             }
-             case KeyEvent.VK_DOWN:
-             {
-                 mapPanel1.down();
-                 break;
-             }
-             case KeyEvent.VK_LEFT:
-             {
-                 mapPanel1.left();
-                 break;
-             }
-             case KeyEvent.VK_RIGHT:
-             {
-                 mapPanel1.right();
-                 break;
-             }
-             
-         }
-    }
+ 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,13 +35,15 @@ public class AdminGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        mapPanel1 = new AdministrationGui.MapPanel();
+        clockLabel = new javax.swing.JLabel();
+        simulationButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(153, 204, 255));
+        setMaximumSize(size());
+        setName("mainWindow"); // NOI18N
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -83,27 +60,22 @@ public class AdminGUI extends javax.swing.JFrame {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setOpaque(true);
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton1.setText("Przycisk2");
-        jButton1.setFocusable(false);
-
         jButton2.setBackground(new java.awt.Color(204, 204, 255));
         jButton2.setText("Przycisk1");
         jButton2.setFocusable(false);
 
-        mapPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        mapPanel1.setFocusable(false);
+        clockLabel.setBackground(new java.awt.Color(255, 255, 255));
+        clockLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        clockLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        clockLabel.setText("00:00");
+        clockLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 51)));
 
-        javax.swing.GroupLayout mapPanel1Layout = new javax.swing.GroupLayout(mapPanel1);
-        mapPanel1.setLayout(mapPanel1Layout);
-        mapPanel1Layout.setHorizontalGroup(
-            mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
-        );
-        mapPanel1Layout.setVerticalGroup(
-            mapPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
-        );
+        simulationButton.setText("Symuluj");
+        simulationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulationButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,36 +84,40 @@ public class AdminGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
+                .addComponent(simulationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(mapPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(244, 244, 244)
+                .addComponent(clockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(mapPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(clockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(simulationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addContainerGap(689, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        carKeyPressed(evt);
+     
         // TODO add your handling code here:
     }//GEN-LAST:event_formKeyPressed
+
+    private void simulationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationButtonActionPerformed
+        if(simulationButton.isSelected()) dataSimulationThread.start();
+    }//GEN-LAST:event_simulationButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,9 +156,9 @@ public class AdminGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel clockLabel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private AdministrationGui.MapPanel mapPanel1;
+    private javax.swing.JToggleButton simulationButton;
     // End of variables declaration//GEN-END:variables
 }

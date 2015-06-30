@@ -213,7 +213,4 @@ public class AdminMap extends PApplet {
         markerManager.addMarkers(carparks);
     }
 
-    static public void main(String args[]) {
-        PApplet.main(new String[]{"AdministrationGui.AdminMap"});
-    }
 }
