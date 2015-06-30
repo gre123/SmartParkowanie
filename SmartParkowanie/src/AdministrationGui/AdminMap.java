@@ -2,8 +2,8 @@ package AdministrationGui;
 
 import Algorithm.CordNode;
 import Algorithm.ParkFinder;
-import Data.DataGenerator;
 import Factory.CarMarkerFactory;
+import Factory.ParkMarkerFactory;
 import Model.CarMarker;
 import Model.LabeledMarker;
 import Model.LinePathMarker;
@@ -12,7 +12,6 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
-import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import java.awt.Color;
@@ -28,6 +27,7 @@ public class AdminMap extends PApplet {
 
     UnfoldingMap map;
     CarMarkerFactory carMarkerFactory = new CarMarkerFactory();
+    ParkMarkerFactory parkMarkerFactory = new ParkMarkerFactory();
     Location AGHLocation;
     MarkerManager markerManager;
     ParkFinder parkFinder;
@@ -200,17 +200,8 @@ public class AdminMap extends PApplet {
      * Ręczne dodawanie parkingów
      */
     public void addCarparks() {
-
-        carparks.add(new LabeledMarker(new Location(50.06682f, 19.91584f), "parking 1 - miejsce na info:\n\nIlość wolnych miejsc : 30"
-                + "\nStatus : Dostępny", 4));
-        carparks.add(new LabeledMarker(new Location(50.06645f, 19.91505f), "parking 1 - miejsce na info", 1));
-        carparks.add(new LabeledMarker(new Location(50.06756f, 19.91384f), "parking 3 - miejsce na info", 1));
-        carparks.add(new LabeledMarker(new Location(50.06642f, 19.91253f), "parking 4 - miejsce na info", 1));
-        carparks.add(new LabeledMarker(new Location(50.06626f, 19.91243f), "parking 5 - miejsce na info", 1));
-        carparks.add(new LabeledMarker(new Location(50.06687f, 19.91960f), "parking 1 - miejsce na info:\n\nIlość wolnych miejsc : 30"
-                + "\nStatus : Dostępny", 4));
-        carparks.add(new LabeledMarker(new Location(50.06576f, 19.91268f), "parking 7 - miejsce na info", 1));
-
+        carparks = parkMarkerFactory.generateMarkers();
+        
         for (LabeledMarker park : carparks) {
             CordNode newCordNode = new CordNode(1, park.getLocation().getLat(), park.getLocation().getLon());
             parkings.add(newCordNode);
