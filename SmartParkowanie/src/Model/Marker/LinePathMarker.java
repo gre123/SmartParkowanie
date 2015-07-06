@@ -1,4 +1,4 @@
-package Model;
+package Model.Marker;
 
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;

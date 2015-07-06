@@ -1,5 +1,6 @@
 
-package Model;
+package Model.Marker;
+import Model.Vehicle;
 import de.fhpotsdam.unfolding.geo.Location;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
